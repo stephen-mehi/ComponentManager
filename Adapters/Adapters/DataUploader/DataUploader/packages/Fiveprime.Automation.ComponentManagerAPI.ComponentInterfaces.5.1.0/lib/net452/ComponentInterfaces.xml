@@ -1,0 +1,666 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ComponentInterfaces</name>
+    </assembly>
+    <members>
+        <member name="T:ComponentInterfaces.IActuator">
+            <summary>
+            Defines a contract for any actuating device such as a motor. Superset of IComponentAdapter.
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IActuator.Home">
+            <summary>
+            Perform action required to establish frame of reference
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.ICartesianRobotAdapter">
+            <summary>
+            Defines a contract for any device that can move to a point within a three dimensional cartesian space
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.ICartesianRobotAdapter.MoveToCoordinates(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Move to point in space relative to devices frame of reference
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="z"></param>
+        </member>
+        <member name="M:ComponentInterfaces.ICartesianRobotAdapter.MoveToTeachpoint(System.String)">
+            <summary>
+            Move to a teachpoint. A teachpoint is an alias/surrogate for coordinates.
+            </summary>
+            <param name="teachPoint"></param>
+        </member>
+        <member name="M:ComponentInterfaces.ICartesianRobotAdapter.GetCurrentCoordinates">
+            <summary>
+            Return current coordinates of the device relative to the current frame of reference.
+            </summary>
+            <returns>Current coordinates</returns>
+        </member>
+        <member name="M:ComponentInterfaces.ICartesianRobotAdapter.GetCurrentTeachPoint">
+            <summary>
+            Attempt to map the current coordinates to a teachpoint
+            </summary>
+            <returns>teachpoint identifier</returns>
+        </member>
+        <member name="M:ComponentInterfaces.ICartesianRobotAdapter.Dock">
+            <summary>
+            Move o the devices configured docking position. This should be a neutral position used for storing the device.
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IProcessRobotAdapter">
+            <summary>
+            Defines a contract for a robot capable of tracking process parameters of samples through unique Ids. Superset of ICartesianRobot.
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IProcessRobotAdapter.ReadID(System.String)">
+            <summary>
+            Read the ID at some teachpoint
+            </summary>
+            <param name="teachpoint"></param>
+            <returns>teachpoint identifier</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IProcessRobotAdapter.ReadAllVesselIDs">
+            <summary>
+            Read all vessel ids
+            </summary>
+            <returns>collection of vessel ids</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IProcessRobotAdapter.ReadVesselPh(System.String)">
+            <summary>
+            Read the ph of a culture vessel
+            </summary>
+            <param name="positionIndex"></param>
+            <returns>Vessel ph</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IProcessRobotAdapter.ReadAllVesselPh">
+            <summary>
+            Read the ph of all culture vessels
+            </summary>
+            <returns>Collection of vessel pH</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IProcessRobotAdapter.ProcessAllVessels">
+            <summary>
+            Carry out all process operations on all vessels
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.ICartesianEndEffectorMetadata">
+            <summary>
+            Defines a contract for device metadata required to drive a device as an end effector. 
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianEndEffectorMetadata.Name">
+            <summary>
+            Human readable name of end effector
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianEndEffectorMetadata.ComponentID">
+            <summary>
+            The component ID. Should match a component registered with the component manager
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianEndEffectorMetadata.AdapterProfile">
+            <summary>
+            The component profile name. Should match a component registered with the component manager
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianEndEffectorMetadata.Description">
+            <summary>
+            Human readable description of end effector
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianEndEffectorMetadata.XOffset">
+            <summary>
+            X axis offset relative to teachpoint for end effector to operate correctly on target. 
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianEndEffectorMetadata.YOffset">
+            <summary>
+            Y axis offset relative to teachpoint for end effector to operate correctly on target. 
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianEndEffectorMetadata.ZOffset">
+            <summary>
+            Z axis offset relative to teachpoint for end effector to operate correctly on target. 
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.ICartesianCoordinates">
+            <summary>
+            Defines a contract for specifying coordinates of a point in cartesian space
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianCoordinates.X_Axis">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianCoordinates.Y_Axis">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.ICartesianCoordinates.Z_Axis">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IBidirectionalServoActuatorAdapter">
+            <summary>
+            Defines a contract for a component capable of actuating to a specified position i.e. a servo actuator. 
+            Component should actuate through discrete positions rather than continuum. Superset of IActuator.
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IBidirectionalServoActuatorAdapter.Actuate(System.Int32)">
+            <summary>
+            Actuate continuously at specified speed
+            </summary>
+            <param name="speed"></param>
+        </member>
+        <member name="M:ComponentInterfaces.IBidirectionalServoActuatorAdapter.ServoActuate(System.Int32)">
+            <summary>
+            Actuate to specified position relative to current frame of reference
+            </summary>
+            <param name="position"></param>
+            <returns>Unbiased measurement of position after move</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IBidirectionalServoActuatorAdapter.GetPosition">
+            <summary>
+            Get current position relative to current frame of reference.
+            </summary>
+            <returns>Current position</returns>
+        </member>
+        <member name="T:ComponentInterfaces.IpHSensorAdapter">
+            <summary>
+            Defines a contract for a temperature dependent pH sensor. Superset of ISensorAdapter
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IpHSensorAdapter.CompensationTemperature">
+            <summary>
+            Compensation temperature to adjust measured pH
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.ISensorAdapter">
+            <summary>
+            Defines contract for a generic sensor e.g. temperature, humidity, strain, barcode, etc. Superset of IComponentAdapter
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.ISensorAdapter.Scan">
+            <summary>
+            Measure parameter of interest
+            </summary>
+            <returns>value of measurement</returns>
+        </member>
+        <member name="T:ComponentInterfaces.IServiceProviderInjected">
+            <summary>
+            Defines a contract that provides the means for injecting a service provider
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IServiceProviderInjected.InjectServiceProvider(System.IServiceProvider)">
+            <summary>
+            Injects a service provider
+            </summary>
+            <param name="serviceProviderObj">provider object capable of locating and serving requested services</param>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentAdapter">
+            <summary>
+            Defines a contract for a generic device. Superset of IDisposable and IServiceProviderInjected.
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.Initialize">
+            <summary>
+            Setup routine required to get component in valid initial state
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.GetError">
+            <summary>
+            Error state from component
+            </summary>
+            <returns>error state</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.Stop">
+            <summary>
+            interrupt component and cancel current operation
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.Pause">
+            <summary>
+            interrupt component and pause current operation
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.Resume">
+            <summary>
+            Resume previously pause operation
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.Reset">
+            <summary>
+            Interrupt component and reset
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.ShutDown">
+            <summary>
+            Shut down routine required to get component in valid dormant state
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.Connect">
+            <summary>
+            Connect to component
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.Disconnect">
+            <summary>
+            Disconnect from component
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.IsConnected">
+            <summary>
+            Get connection state
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.CommitConfiguredState">
+            <summary>
+            Commit any volatile configuration data
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentAdapter.ReadState">
+            <summary>
+            Read component state
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentAdapter.ComponentName">
+            <summary>
+            Human readable component identifier
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentDataModel`2">
+            <summary>
+            Defines contract for type-safe, covariant wrapper, consolidating two objects as properties. 
+            These props are enforced by runtime type-checking against specified generic type args. 
+            </summary>
+            <typeparam name="ComponentAdapterType">Type requirement for ComponentAdapterProfile property. If dont care, specify typeof(object)</typeparam>
+            <typeparam name="ConstructionDataType">Type requirement for ConstructionData property. If dont care, specify typeof(object)</typeparam>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentDataModel`2.ConstructionData">
+            <summary>
+            Metadata required to dynamically load assembly and instantiate a type
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentDataModel`2.ComponentAdapterProfile">
+            <summary>
+            The dynamically loaded type object
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentConstructionData">
+            <summary>
+            Defines contract of metadata required to dynamically load assembly and instantiate component type
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.ComponentID">
+            <summary>
+            Human readable component identifier
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.AdapterProfileName">
+            <summary>
+            Human readable component profile identifier
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.AdapterProfileDirectory">
+            <summary>
+            Directory where component profile is stored
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.IsActive">
+            <summary>
+            Flag specifying whether profile is the active one
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.DateCreated">
+            <summary>
+            Date profile was created
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.CreatedBy">
+            <summary>
+            Identity of creator
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.DateModified">
+            <summary>
+            Date of profile modification
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.ModifiedBy">
+            <summary>
+            Identity of modifier
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.AssemblyPath">
+            <summary>
+            Path to assembly where component is located
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentConstructionData.ClassName">
+            <summary>
+            Class name of the component
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentEqualityComparer">
+            <summary>
+            Defines contract of closed generic type capable of resolving the equality of two components
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentManagerBase`2">
+            <summary>
+            Defines contract for a open generic component manager, providing all tooling for 
+            performing CRUD operations on components and associated profiles. 
+            </summary>
+            <typeparam name="ComponentAdapterType">Type of the component to manage</typeparam>
+            <typeparam name="ConstructionDataType">Type of metadata required to manage component</typeparam>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.PersistConstructionDataCollection">
+            <summary>
+            Commit current state of component collection
+            </summary>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetConstructionDataProfiles">
+            <summary>
+            Get collection of component metadata
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.CreateComponent(System.String,System.String)">
+            <summary>
+            Create new component
+            </summary>
+            <param name="componentID">Human readable component identifier</param>
+            <param name="createdBy">Identity of creator</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.DeleteComponent(System.String)">
+            <summary>
+            Delete component
+            </summary>
+            <param name="componentID">component identifier</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.RenameComponent(System.String,System.String,System.String)">
+            <summary>
+            Change a component identifier
+            </summary>
+            <param name="oldComponentID">Previous identifier</param>
+            <param name="newComponentID">New identifier</param>
+            <param name="updatedBy">Identity of updater</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.DeleteComponentProfile(System.String,System.String)">
+            <summary>
+            Delete a component profile
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="adapterProfileName">Profile identifier</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.CreateComponentProfile(System.String,System.String,System.String)">
+            <summary>
+            Create component profile
+            </summary>
+            <param name="componentID">Component identifier</param>
+            <param name="adapterProfileName">Profile identifier</param>
+            <param name="createdBy">Identity of creator</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.UpdateComponentProfile(`0,`1)">
+            <summary>
+            Update component profile
+            </summary>
+            <param name="adapterProfile">Profile object</param>
+            <param name="constructionProfile">Profile metadata object</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetComponentProfile(System.String,System.String)">
+            <summary>
+            Get component profile
+            </summary>
+            <param name="componentID">Component identifier</param>
+            <param name="profileName">Profile identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetActiveComponentProfile(System.String)">
+            <summary>
+            Get active component profile
+            </summary>
+            <param name="componentID">component identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.SetActiveComponentProfile(System.String,System.String)">
+            <summary>
+            Set the active component profile
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="profileName">profile identifier</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetComponentProfiles(System.String)">
+            <summary>
+            Get collection of component profiles
+            </summary>
+            <param name="componentID">component identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetComponentProfileNames(System.String)">
+            <summary>
+            Get collection of component profile names
+            </summary>
+            <param name="componentID">component identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetAdapter(System.String,System.String)">
+            <summary>
+            Get a new compoent profile object
+            </summary>
+            <param name="assemblyName">Path to assembly where component type resides</param>
+            <param name="className">Component class name</param>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetComponentProfileMethods(System.Object)">
+            <summary>
+            Get collection of component profile methods
+            </summary>
+            <param name="componentAdapterProfile">component profile object</param>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetComponentProfileMethods(System.String,System.String,System.String)">
+            <summary>
+            /// Get collection of component profile methods
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="methodName">method name</param>
+            <param name="profileName">profile identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManagerBase`2.GetComponentProfileActions(System.String,System.String,System.String)">
+            <summary>
+            Get collection of component profile actions. 
+            It is up to the implementor to make the distinction criteria between methods and actions.
+            Generally, should be a more curated collection
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="actionID">action identifier</param>
+            <param name="profileName">profile identifier</param>
+            <returns></returns>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentManager`2">
+            <summary>
+            Defines contract for a open, constrained, generic component manager, providing all tooling for 
+            performing CRUD operations on components and associated profiles. Superset of IComponentManagerBase.
+            </summary>
+            <typeparam name="ComponentAdapterType">Type of the component to manage. Must be superset of or implement IComponentAdapter</typeparam>
+            <typeparam name="ConstructionDataType">Type of metadata required to manage component</typeparam>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManager`2.InitializeComponentProfile(System.String,System.String)">
+            <summary>
+            Initialize component
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="profile">profile identifier</param>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManager`2.InvokeActionOnComponentProfile(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Invoke specified action on component profile
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="actionID">action identifier</param>
+            <param name="actionArgs">action arguments. Should be correct order and number expected by the action</param>
+            <param name="profileName">component profile identifier</param>
+            <returns>The return object of the invoked method</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManager`2.InitializeAndInvokeActionOnComponentProfile(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            initialize and invoke specified action on component profile
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="actionID">action identifier</param>
+            <param name="actionArgs">action arguments. Should be correct order and number expected by the action</param>
+            <param name="profileName">Component profile identifier</param>
+            <returns>The return object of the invoked method</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManager`2.ConnectAndInvokeActionOnComponentProfile(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Connect and invoke specified action on component profile
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="actionID">action identifier</param>
+            <param name="actionArgs">action arguments. Should be correct order and number expected by the action</param>
+            <param name="profileName">Component profile identifier</param>
+            <returns>The return object of the invoked method</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentManager`2.GetComponentProfileStates(System.String,System.String)">
+            <summary>
+            Read the components state
+            </summary>
+            <param name="componentID">component identifier</param>
+            <param name="profileName">profile identifier</param>
+            <returns></returns>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentCollection`1">
+            <summary>
+            Defines contract for covariant, type-safe collection of component metadata.
+            Superset of IEnumerable[ConstructionDataType], IEnumerable.
+            </summary>
+            <typeparam name="ConstructionDataType"></typeparam>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentCollection`1.AddComponent(System.Object)">
+            <summary>
+            Add new component metdata to collection
+            </summary>
+            <param name="item"></param>
+            <returns>Successful add flag</returns>
+        </member>
+        <member name="M:ComponentInterfaces.IComponentCollection`1.RemoveComponent(System.Object)">
+            <summary>
+            Remove existing component metdata from collection
+            </summary>
+            <param name="item"></param>
+            <returns>Successful remove flag</returns>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentStateAttribute">
+            <summary>
+            Defines contract for an attribute designating a property as component state.
+            Superset of IHumanReadableMember.
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentActionAttribute">
+            <summary>
+            Defines contract for an attribute designating a method as a component action.
+            Superset of IHumanReadableMember.
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentActionAttribute.IsIndependent">
+            <summary>
+            whether an aciton can be run independently
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentActionParameterAttribute">
+            <summary>
+             Defines contract for an attribute designating a method parameter as an action parameter
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentActionStructure">
+            <summary>
+            Defines contract for metadata required to invoke web-hosted component action remotely.
+            Superset of IHumanReadableMember.
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentActionStructure.ActionURL">
+            <summary>
+            url endpoint of component action
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentActionStructure.RequiresInitialize">
+            <summary>
+            Flag specifying whether component needs to be initialized before invoking action
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentActionStructure.IsIndependent">
+            <summary>
+            Flag specifying whether an action can be invoked independently
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentActionStructure.Parameters">
+            <summary>
+            Collection of parameter objects
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IComponentActionParameterStructure">
+            <summary>
+            Defines a contract for component action parameter. Superset of IHumanReadableMember.
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentActionParameterStructure.ParameterType">
+            <summary>
+            The type of the parameter.
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IComponentActionParameterStructure.ParameterValue">
+            <summary>
+            The string representation of the param value
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IAssemblyProbing">
+            <summary>
+            Defines a contract for metadata that describes where an assembly probe should look when attempting to resolve an assembly.
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IAssemblyProbing.CurrentProbingPath">
+            <summary>
+            stores the most recent probing location
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IAssemblyProbing.PrivateBinFolderName">
+            <summary>
+            stores the private bin of the application
+            </summary>
+        </member>
+        <member name="T:ComponentInterfaces.IHumanReadableMember">
+            <summary>
+            Defines a contract that provides human readable information about a member of code.
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IHumanReadableMember.MemberName">
+            <summary>
+            Name of the code member
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IHumanReadableMember.MemberAlias">
+            <summary>
+            Alias for the code member
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IHumanReadableMember.MemberDescription">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:ComponentInterfaces.IHumanReadableMember.MemberID">
+            <summary>
+            Identifier for code member
+            </summary>
+        </member>
+    </members>
+</doc>

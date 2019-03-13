@@ -1,0 +1,481 @@
+
+@model IComponentDataModel<IComponentAdapter, IComponentConstructionData>
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $.ComponentProfileNameSpace = {};
+
+        $.ComponentProfileNameSpace.GetComponentIdentifiersURI = "@Url.RouteUrl("GetComponentObjectIdentifiers")";
+        $.ComponentProfileNameSpace.GetAdapterProfilesIdentifiersURI = "@Url.RouteUrl("GetComponentObjectAdapterProfileIdentifiersFromQueryStr")";
+        $.ComponentProfileNameSpace.GetAdapterProfilesActionIdentifiersURI = "@Url.RouteUrl("GetActionIdentifiersOnComponentObjectProfileFromQueryStr")";
+        $.ComponentProfileNameSpace.InvokeRemoteComponentActionBaseURI = "@Url.RouteUrl("InvokeActionOnComponentObjectProfileFromQueryStr")";
+        $.ComponentProfileNameSpace.GetComponentActionURI = "@Url.RouteUrl("GetComponentActionUriFromQueryStr")";
+
+        $.ComponentProfileNameSpace.BuildNavLinks = function () {
+
+            $("#ComponentNavList").empty();
+
+            var linkText =
+                '<li><a href="@Url.Action("Index","Home")">Home</a></li>' +
+                '<li><a class="ComponentNavLink" href="@Url.RouteUrl("GetComponentObjects")">Registered Components</a></li>' +
+                '<li><a class="ComponentNavLink" href="@Url.RouteUrl("GetActionsOnComponentObjectProfile_All", new { ComponentID = ((IComponentConstructionData)Model?.ConstructionData)?.ComponentID, ProfileName = ((IComponentConstructionData)Model?.ConstructionData)?.AdapterProfileName })">Component Actions</a></li>';
+
+            $("#ComponentNavList").append(linkText);
+
+        };
+
+
+        $.ComponentProfileNameSpace.HandleAssemblyChange = function () {
+            //show button to fetch new adapter
+            $("#ChangeAdapterModalLink").show(300);
+            //disable all controls
+            $("#AdapterProfile input, #AdapterProfile select").prop("disabled", true);
+        };
+
+        $.ComponentProfileNameSpace.PopulateEndEffectorComponentIds = function ($self) {
+
+            //build request
+            var ajaxOptions = {
+                url: $.ComponentProfileNameSpace.GetComponentIdentifiersURI,
+                method: "get",
+                dataType: "json",
+                success: function (response) {
+
+                    var responseVals = response["$values"];
+                    var currentSelection = $self.val();//get current selection
+                    $self.empty();//empty their comp ID options
+                    $self.append($('<option/>'), { value: "", text: "" });//add blank option
+                    $.each(responseVals, function (index, value) {//iterate over comp id response array
+                        $self.append($('<option/>', {//append new option
+                            value: value,
+                            text: value
+                        }));
+                    });
+
+                    //if last selection was not null or empty
+                    if (currentSelection) {
+                        //attempt to find last selected
+                        var lastSelectedExists = $self
+                            .find("option")
+                            .removeAttr("selected")
+                            .filter("[value=" + currentSelection + "]")
+                            .length;
+
+                        //if found
+                        if (lastSelectedExists > 0) {
+                            //select that value
+                            $self.val(currentSelection).change();
+                        }
+
+                    }
+
+                }
+            };
+
+            return $.ajax(ajaxOptions);
+
+        };
+
+        $.ComponentProfileNameSpace.HandleEndEffectorComponentChange = function ($self) {
+
+
+            //find adapter profile select list
+            var $adapterProfileSelect = $self.closest(".EndEffectorContainer").find(".EndEffectorAdapterProfile");
+            //get past selections
+            var adapterSelection = $adapterProfileSelect.val();
+            //empty out
+            $adapterProfileSelect.empty();//empty their comp ID options
+
+            //if selected item not empty string
+            if ($self.val()) {
+
+                //get selected comp id
+                var data = { ComponentID: $self.val() };
+
+                //build request
+                var ajaxOptions = {
+                    url: $.ComponentProfileNameSpace.GetAdapterProfilesIdentifiersURI,
+                    method: "get",
+                    dataType: "json",
+                    data: data,
+                    success: function (response) {
+
+                        var responseVals = response["$values"];
+
+                        $adapterProfileSelect.append($('<option/>'), { value: "", text: "" });//add blank option
+
+                        $.each(responseVals, function (index, value) {//iterate over comp id response array
+                            $adapterProfileSelect.append($('<option/>', {//append new option
+                                value: value,
+                                text: value
+                            }));
+                        });
+
+                        //if last selection was not null or empty
+                        if (adapterSelection) {
+                            //attempt to find last selected
+                            var lastSelectedExists = $adapterProfileSelect
+                                .find("option")
+                                .removeAttr("selected")
+                                .filter("[value=" + adapterSelection + "]")
+                                .length;
+
+                            //if found
+                            if (lastSelectedExists > 0) {
+                                //select that value
+                                $adapterProfileSelect.val(adapterSelection).change();
+                            }
+
+                        }
+                    }
+                };
+
+                return $.ajax(ajaxOptions);
+            }
+
+            return null;
+        };
+
+        //NO LONGER USING*************************
+        //$.ComponentProfileNameSpace.HandleBuildEndEffectorActionUri = function ($self) {
+
+        //    //find adapter profile select list
+        //    var $adapterProfileSelect = $self.closest(".EndEffectorContainer").find(".EndEffectorAdapterProfile");
+        //    //find component select list
+        //    var $componentSelect = $self.closest(".EndEffectorContainer").find(".EndEffectorComponentID");
+        //    //find invoke remote base uri input
+        //    var $remoteActionUri = $self.closest(".EndEffectorContainer").find(".InvokeRemoteComponentUri");
+
+        //    //get adapterprofile selection
+        //    var adapterProfileSelection = $adapterProfileSelect.val();
+        //    //get component selection
+        //    var componentSelection = $componentSelect.val();
+
+        //    //get selected action
+        //    var actionSelection = $self.val();
+
+        //    //if selected item not empty string
+        //    if (actionSelection) {
+
+
+        //        //get selected comp id and adapter profile
+        //        var data =
+        //            {
+        //                ComponentID: componentSelection,
+        //                ProfileName: adapterProfileSelection,
+        //                ActionID: actionSelection
+        //            };
+
+
+        //        //build request
+        //        var ajaxOptions = {
+        //            url: $.ComponentProfileNameSpace.GetComponentActionURI,
+        //            method: "get",
+        //            data: data,
+        //            success: function (response) {
+        //                $remoteActionUri.val(response);
+
+        //            },
+
+        //        };
+
+
+        //        return $.ajax(ajaxOptions);
+        //    }
+
+        //    return null;
+
+        //}
+
+        //NO LONGER USING *************************
+        //$.ComponentProfileNameSpace.HandleEndEffectorAdapterProfileChange = function ($self) {
+
+        //    //find adapter action select list
+        //    var $adapterActionSelect = $self.closest(".EndEffectorContainer").find(".EndEffectorActionID");
+        //    //get last selection
+        //    var actionSelection = $adapterActionSelect.val();
+
+        //    $adapterActionSelect.empty();//empty actions
+
+        //    //if selected item not empty string
+        //    if ($self.val()) {
+
+        //        //find comp id select list
+        //        var $componentIdSelect = $self.closest(".EndEffectorContainer").find(".EndEffectorComponentID");
+
+        //        //get selected comp id and adapter profile
+        //        var data =
+        //            {
+        //                ComponentID: $componentIdSelect.val(),
+        //                ProfileName: $self.val()
+        //            };
+
+        //        //build request
+        //        var ajaxOptions = {
+        //            url: $.ComponentProfileNameSpace.GetAdapterProfilesActionIdentifiersURI,
+        //            method: "get",
+        //            dataType: "json",
+        //            data: data,
+        //            success: function (response) {
+
+        //                var responseVals = response["$values"];
+
+        //                $adapterActionSelect.append($('<option/>'), { value: "", text: "" });//add blank option
+
+        //                $.each(responseVals, function (index, value) {//iterate over comp id response array
+        //                    $adapterActionSelect.append($('<option/>', {//append new option
+        //                        value: value,
+        //                        text: value
+        //                    }));
+        //                });
+
+        //                console.log(actionSelection);
+        //                //if last selection was not null or empty
+        //                if (actionSelection) {
+        //                    //attempt to find last selected
+        //                    var lastSelectedExists = $adapterActionSelect
+        //                        .find("option")
+        //                        .removeAttr("selected")
+        //                        .filter("[value=" + actionSelection + "]")
+        //                        .length;
+
+        //                    //if found
+        //                    if (lastSelectedExists > 0) {
+        //                        //select that value
+        //                        $adapterActionSelect.val(actionSelection).change();
+        //                    }
+
+        //                }
+        //            }
+        //        };
+
+
+        //        return $.ajax(ajaxOptions);
+        //    }
+
+        //    return null;
+
+        //}
+
+        $.ComponentProfileNameSpace.HandleUpdateProfileRequest = function (event, $self) {
+
+            if ($self.attr("target") === "_blank") {
+                return;
+            }
+
+            var url = $self.attr("action");
+            var data = $self.serialize();
+            var method = $self.attr("method");
+
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                dataType: "html",
+                data: data,
+                success: function (response) {
+
+                    //get profile
+                    var ajaxOptions = {
+                        url: "@Url.RouteUrl("GetComponentObjectProfile", new { ComponentID = ((IComponentConstructionData)Model?.ConstructionData)?.ComponentID, ProfileName = ((IComponentConstructionData)Model?.ConstructionData)?.AdapterProfileName })",
+                        dataType: "html",
+                        method: "get",
+                        beforeSend: function () {
+
+                            $(".UpdateComponentErrorMessage").hide(250);
+                            $self.find(".UpdateComponentSuccessMessage").hide(250);
+
+                        },
+                        success: function (response) {
+
+                            $("#ComponentProfileContainer").replaceWith($(response).filter("#ComponentProfileContainer"));
+
+                            $(".UpdateComponentSuccessMessage").show(250);
+
+                        },
+                        error: function (xhr, status, error) {
+
+                            $self.find(".UpdateComponentErrorMessage").show(250);
+
+                        }
+                    };
+
+                    $.ajax(ajaxOptions);
+
+                },
+                complete: function () {
+
+                    $.ComponentProfileNameSpace.PopulateAllEndEffectorComponentIds();
+
+                }
+            };
+
+            //prevent full postback
+            event.preventDefault();
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+
+        };
+
+        $.ComponentProfileNameSpace.HandleAdapterRefreshClick = function (event, $self) {
+
+            if ($self.attr("target") === "_blank") {
+                return;
+            }
+
+            var url = $self.attr("action");
+            var data = $self.serialize();
+            var method = $self.attr("method");
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                dataType: "html",
+                data: data,
+                success: function (response) {
+
+                    var $modal = $self.closest(".modal");
+
+                    //hide modal
+                    $modal.modal("hide");
+                    //get new assembly value
+                    var newAsm = $("#AdapterAssemblyPath").val();
+                    //get new class name
+                    var newClassName = $("#AdapterClassName").val();
+
+                    $("input[name = '@nameof(IComponentConstructionData.AssemblyPath)']").val(newAsm);
+                    $("input[name = '@nameof(IComponentConstructionData.ClassName)']").val(newClassName);
+
+                    //replace div contents with new adapter
+                    $("#AdapterProfile").replaceWith(response);
+
+                    
+                },
+                complete: function () {
+
+                    $.ComponentProfileNameSpace.PopulateAllEndEffectorComponentIds(); 
+
+                }
+            };
+
+            //prevent full postback
+            event.preventDefault();
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+        };
+
+
+        $.ComponentProfileNameSpace.PopulateAllEndEffectorComponentIds = function () {
+
+            //get end effector comp id select list
+            var $compSelectLists = $("div.EndEffectorContainer .EndEffectorComponentID");
+
+            $compSelectLists.each(function (i) {
+
+                //populate its available compids
+                $.ComponentProfileNameSpace.PopulateEndEffectorComponentIds($(this));
+            });
+        };
+
+
+        //$.ComponentProfileNameSpace.PopulateAllEndEffectorComponentIds();
+        $.ComponentProfileNameSpace.BuildNavLinks();
+
+    });
+
+</script>
+
+<div class="container" id="ComponentProfileContainer">
+    @if (Model != null)
+    {
+        var ctorData = Model.ConstructionData as IComponentConstructionData;
+
+
+        if (ctorData != null)
+        {
+
+            var compHeader = "Component ID: " + ctorData.ComponentID;
+            var profileHeader = "Profile Name: " + ctorData.AdapterProfileName;
+
+            <div>
+                <h3>@compHeader</h3>
+                <h3>@profileHeader</h3>
+            </div>
+
+            <div>
+                <form id="ComponentProfileForm" class="form-horizontal" action="@Url.RouteUrl("UpdateComponentObjectProfile", new { ComponentID = ctorData.ComponentID, ProfileName = ctorData.AdapterProfileName })" method="put">
+
+                    <div class="well row">
+                        <h3>Profile Data</h3>
+                        <div id="ConstructionDataContainer">
+                            @Html.Partial("~/Views/ComponentObjects/_ConstructionData.cshtml", Model.ConstructionData)
+                        </div>
+
+                        <a id="ChangeAdapterModalLink" class="btn btn-sm btn-info" title="Change adapter" href="#" data-toggle="modal" data-target="#ChangeAdapterModal"><span class="glyphicon glyphicon-import"></span> Change Adapter</a>
+
+                    </div>
+
+                    <div class="well row">
+                        <h3>Component Data</h3>
+                        <div id="AdapterContainer">
+
+                            @Html.Partial("~/Views/ComponentObjects/_Adapter.cshtml", Model.ComponentAdapterProfile)
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Commit Changes" class="form-control btn btn-primary" />
+                </form>
+            </div>
+
+        }
+
+        <div data-backdrop="false" class="modal fade" id="ChangeAdapterModal" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change Adapter</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please supply the assembly path(unc) and class name for the new adapter</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form id="GetAdapterForm" action="@Url.RouteUrl("GetComponentObjectAdapterFromQueryStr")" method="get">
+                            <div class="form-group">
+                                <label class="control-label" for="AdapterAssemblyPath">Assembly Path(UNC)</label>
+                                <input class="form-control" id="AdapterAssemblyPath" type="text" name="AssemblyPath">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="AdapterAssemblyPath">Class Name</label>
+                                <input class="form-control" id="AdapterClassName" type="text" name="ClassName">
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-success" type="submit" value="Submit" />
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="UpdateComponentErrorMessage alert alert-danger">
+    <a href="#" class="close" aria-label="close">X</a>
+    <strong>Error</strong> Failed to update component
+</div>
+
+<div class="UpdateComponentSuccessMessage alert alert-success">
+    <a href="#" class="close" aria-label="close">X</a>
+    <strong>Success!</strong> Successfully update component
+</div>

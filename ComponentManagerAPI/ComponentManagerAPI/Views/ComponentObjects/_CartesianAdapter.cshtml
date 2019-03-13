@@ -1,0 +1,22 @@
+@using System.Runtime.Serialization;
+@using System.Reflection;
+@using System.ComponentModel.DataAnnotations;
+
+@model ICartesianRobotAdapter
+
+
+@{
+    var GetPositionActionID =
+        (Model
+        .GetType()
+        .GetMethods()?
+        .SingleOrDefault(m => m.Name.Equals(nameof(ICartesianRobotAdapter.GetCurrentCoordinates), StringComparison.Ordinal))?
+        .GetCustomAttributes()?
+        .SingleOrDefault(a => typeof(IComponentActionAttribute).IsAssignableFrom(a.GetType())) as IComponentActionAttribute)?
+        .MemberID;
+
+
+}
+
+@Html.EditorForModel(new { })
+

@@ -1,0 +1,100 @@
+
+@model IComponentDataModel<IComponentAdapter, IComponentConstructionData>
+
+<div id="AdapterStateContainer">
+
+    @if (Model != null && Model.ConstructionData != null && Model.ComponentAdapterProfile != null)
+    {
+        var ctorData = Model.ConstructionData as IComponentConstructionData;
+
+        if (ctorData != null)
+        {
+
+            <script>
+
+                $(document).ready(function () {
+
+                    $.AdapterStateNameSpace = {};
+                    $.AdapterStateNameSpace.StreamStateUri = "@Url.RouteUrl("ConnectComponentAndReadState", new { ComponentID = ctorData.ComponentID, ProfileName = ctorData.AdapterProfileName })";
+
+                    $.AdapterStateNameSpace.HandleStreamStateChecked = function () {
+
+                        //get ref to checkbox
+                        var $streamStateCheckBox = $("#StreamComponentState");
+
+                        //if check box checked, enter recursive polling
+                        if ($streamStateCheckBox.is(":checked")) {
+                            //build request
+                            var ajaxOptions = {
+                                url: $.AdapterStateNameSpace.StreamStateUri,
+                                method: "get",
+                                dataType: "html",
+                                global: false,
+                                beforeSend: function () {
+                                    $("#stateStreamingLoaderContainer").fadeTo(100, 1);
+                                },
+                                complete: function () {
+                                    $("#stateStreamingLoaderContainer").fadeTo(100, 0);
+                                    //delay before recursively polling comp state
+                                    setTimeout($.AdapterStateNameSpace.HandleStreamStateChecked, 2000);
+                                },
+                                error: function (event, jqxhr, settings, thrownError) {
+                                    $(".StreamComponentStateErrorMessage").show(200);
+                                },
+                                success: function (response) {
+
+                                    console.log(response);
+                                    console.log($("#AdapterState").length);
+                                    console.log($(response).find("#AdapterState").length);
+
+                                    $("#AdapterState").replaceWith($(response).find("#AdapterState"));
+                                }
+                            };
+
+                            $.ajax(ajaxOptions);
+                        }
+
+                    };
+
+
+                });
+
+            </script>
+
+            <div class="row">
+                <div class="col-sm-2" id="stateStreamingLoaderContainer" style="opacity: 0;">
+                    <div class="smallLoader">
+                    </div>
+                    <p>streaming...</p>
+                </div>
+                <div class="checkbox col-sm-4">
+                    <label><input id="StreamComponentState" type="checkbox" value="" />Stream State?</label>
+                </div>
+                
+            </div>
+
+            
+
+            <div class="StreamComponentStateErrorMessage alert alert-danger">
+                <a href="#" class="close" aria-label="close">X</a>
+                <strong>Error</strong> Failed to stream component state
+            </div>
+
+            var compHeader = "Component ID: " + ctorData.ComponentID;
+            var profileHeader = "Profile Name: " + ctorData.AdapterProfileName;
+
+            <div>
+                <h3>@compHeader</h3>
+                <h3>@profileHeader</h3>
+            </div>
+
+            <div class="well row">
+                <h3>Adapter State</h3>
+                @Html.Partial("~/Views/ComponentObjects/_AdapterState.cshtml", Model.ComponentAdapterProfile)
+            </div>
+
+
+
+        }
+    }
+</div>

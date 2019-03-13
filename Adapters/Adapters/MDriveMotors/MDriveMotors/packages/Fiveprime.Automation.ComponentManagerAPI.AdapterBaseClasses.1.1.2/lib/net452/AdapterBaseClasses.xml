@@ -1,0 +1,546 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdapterBaseClasses</name>
+    </assembly>
+    <members>
+        <member name="T:AdapterBaseClasses.CartesianCoordinates">
+            <summary>
+            Base implementation of ICartesianCoordinates
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianCoordinates.X_Axis">
+            <summary>
+            X coordinate value
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianCoordinates.Y_Axis">
+            <summary>
+            Y coordinate value
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianCoordinates.Z_Axis">
+            <summary>
+            Z coordinate value
+            </summary>
+        </member>
+        <member name="T:AdapterBaseClasses.CartesianEndEffectorMetaData">
+            <summary>
+            Base implementation of ICartesianEndEffectorMetadata
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianEndEffectorMetaData.ComponentID">
+            <summary>
+            Component ID
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianEndEffectorMetaData.AdapterProfile">
+            <summary>
+            Profile ID
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianEndEffectorMetaData.Description">
+            <summary>
+            Description of component
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianEndEffectorMetaData.XOffset">
+            <summary>
+            X axis offset relative to teachpoint for end effector to operate correctly on target. 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianEndEffectorMetaData.YOffset">
+            <summary>
+            Y axis offset relative to teachpoint for end effector to operate correctly on target. 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianEndEffectorMetaData.ZOffset">
+            <summary>
+            Z axis offset relative to teachpoint for end effector to operate correctly on target. 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.CartesianEndEffectorMetaData.Name">
+            <summary>
+            Human readable name of component
+            </summary>
+        </member>
+        <member name="T:AdapterBaseClasses.ComponentAdapter">
+            <summary>
+            Base abstract implmentation of IComponentAdapter
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.#ctor">
+            <summary>
+            protected ctor because this is abstract class
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentAdapter.ComponentName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Initialize">
+            <summary>
+            Setup routine required to get component in valid initial state
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.GetError">
+            <summary>
+            Error state from component
+            </summary>
+            <returns>error state</returns>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Stop">
+            <summary>
+            interrupt component and cancel current operation
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Pause">
+            <summary>
+            interrupt component and pause current operation
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Resume">
+            <summary>
+            Resume previously pause operation
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Reset">
+            <summary>
+            Interrupt component and reset
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.ShutDown">
+            <summary>
+            Shut down routine required to get component in valid dormant state
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Connect">
+            <summary>
+            Connect to component
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Disconnect">
+            <summary>
+            Disconnect from component
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.IsConnected">
+            <summary>
+            Get connection state
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.CommitConfiguredState">
+            <summary>
+            Commit any volatile configuration data
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.ReadState">
+            <summary>
+            Read component state
+            </summary>
+        </member>
+        <member name="F:AdapterBaseClasses.ComponentAdapter.disposed">
+            <summary>
+            Internal disposed state flag
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Dispose">
+            <summary>
+            Implementation of IDisposable 
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentAdapter.Dispose(System.Boolean)">
+            <summary>
+            Handles releasing unmanaged resources before objects death. 
+            </summary>
+            <param name="disposing">Determines whether being invoked from within Dispose or a finalizer</param>
+        </member>
+        <member name="T:AdapterBaseClasses.SerialAdapter">
+            <summary>
+            Base serial device implementation. Provides base tooling for communication with serial devices
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.#ctor">
+            <summary>
+            protected default ctor
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.#ctor(CommonServiceInterfaces.ICodeContractService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="codeContractDependency"></param>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.OnDeserialized(System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Runs after deserialization occurs
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.InitializeMembers">
+            <summary>
+            any initial object setup should occur here. This is invoked after deserialization.
+            </summary>
+        </member>
+        <member name="F:AdapterBaseClasses.SerialAdapter._codeContractDependency">
+            <summary>
+            Code contract dependency. Used for specifying pre and post conditions within a method
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.MessageEncoding">
+            <summary>
+            The encoding type used when converting strings to bytes before sending to serial device endpoint
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.SerialPortObject">
+            <summary>
+            internal serial port helper object
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.TerminationCharacter">
+            <summary>
+            The character used to specify the end of a message to or from the serial device endpoint
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.PortName">
+            <summary>
+            The port name e.g. COM1
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.RemoteActionTimeout">
+            <summary>
+            The time allowed for the device to perform a blocking action before a timeout exception will be thrown
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.WriteTimeout">
+            <summary>
+            The time allowed to write all bytes to the output serial buffer
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.ReadTimeout">
+            <summary>
+            The time allowed to make a blocking read from the serial input buffer
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.DataBits">
+            <summary>
+            The number of bits allocated for data according to the device's specific serial communication specification 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.BaudRate">
+            <summary>
+            The baud rate according to the device's specific serial communication specification 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.StopBits">
+            <summary>
+            The number of bits allocated to designate a full message stop according to the device's specific serial communication specification 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.Parity">
+            <summary>
+            The type of parity error checking according to the device's specific serial communication specification 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.SerialAdapter.Handshake">
+            <summary>
+            The type of hardware handshake mechanism - using DTR, DSR, RTS, and CTS - according to the device's specific serial communication specification 
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.IsConnectionConfirmed">
+            <summary>
+            Should provide logic for confirming the validity of a serial connection during port scanning and binding. 
+            During port scanning, all available ports are iterated, bound, and then this check is run against the port
+            to confirm it is the correct device.
+            </summary>
+            <returns>Flag indicating validity of connection</returns>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.TryConnectWithCurrentSettings(System.String)">
+            <summary>
+            Attempt to connect to port with current serial connection configuration
+            </summary>
+            <param name="portName">Name of the port where a connection should be attempted</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.ScanPortsAndConnectWithCurrentSettings">
+            <summary>
+            Iterate over available ports and attempt connection with currently configured serial settings
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.Write(System.String)">
+            <summary>
+            Write message bytes to serial port
+            </summary>
+            <param name="message">text to write to port</param>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.Read(System.Int32)">
+            <summary>
+            Read up to configured termination character
+            </summary>
+            <param name="timeout">Time to block and read until timeout exception is thrown</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.Connect">
+            <summary>
+            Attempt connection with current port name setting. 
+            If that fails, attempt connection on all other ports
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.Disconnect">
+            <summary>
+            Disconnect from serial port 
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.IsConnected">
+            <summary>
+            Check the connection state of the port
+            </summary>
+            <returns>The connection state of the port</returns>
+        </member>
+        <member name="M:AdapterBaseClasses.SerialAdapter.Dispose(System.Boolean)">
+            <summary>
+            Handles releasing resources before objects death 
+            </summary>
+            <param name="disposing">Determines whether being invoked from within Dispose or a finalizer</param>
+        </member>
+        <member name="T:AdapterBaseClasses.TCP_IP_Adapter">
+            <summary>
+            Base TCP device implementation. Provides base tooling for communication with TCP IP devices
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.#ctor">
+            <summary>
+            default ctor
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.#ctor(CommonServiceInterfaces.ICodeContractService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="codeContractDependency"></param>
+        </member>
+        <member name="F:AdapterBaseClasses.TCP_IP_Adapter._codeContractDependency">
+            <summary>
+            Code contract dependency. Used for specifying pre and post conditions within a method
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.OnDeserialized(System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Runs directly after deserialization occurs. 
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.InitializeMembers">
+            <summary>
+            Object state gets initialized here. Gets invoked after deserialization.
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.RemoteActionTimeout">
+            <summary>
+            The time allowed for the device to perform a blocking action before a timeout exception will be thrown
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.ReadTimeout">
+            <summary>
+            The amount of time to make a blocking read before throwing a timout exception
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.WriteTimeout">
+            <summary>
+            The amount of time to make a blocking write before timing out
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.TcpObject">
+            <summary>
+            internal tcp helper object
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.MessageEncoding">
+            <summary>
+            Encoding used when converting strings to bytes before writing to network stream 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.IpAddress">
+            <summary>
+            The IP address of the component
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.Port">
+            <summary>
+            Network port the device listens on 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.TCP_IP_Adapter.TerminationCharacters">
+            <summary>
+            Collection of possible termination characters. 
+            Used for determining the end of an incoming message.
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.IsConnected">
+            <summary>
+            Checks TCP object connection 
+            </summary>
+            <returns>returns connection state of TCP object</returns>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.Connect">
+            <summary>
+            Connect to component
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.Disconnect">
+            <summary>
+            disconnect from component
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.Read">
+            <summary>
+            Read byte wise from network stream until any termination character found
+            </summary>
+            <returns>Read message</returns>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.Write(System.String)">
+            <summary>
+            Write message to network stream using specified encoding
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:AdapterBaseClasses.TCP_IP_Adapter.Dispose(System.Boolean)">
+            <summary>
+            Handles releasing resources before objects death 
+            </summary>
+            <param name="disposing">Determines whether being invoked from within Dispose or a finalizer</param>
+        </member>
+        <member name="T:AdapterBaseClasses.IO_State">
+            <summary>
+            Enum representing possible digital IO state
+            </summary>
+        </member>
+        <member name="F:AdapterBaseClasses.IO_State.NONE">
+            <summary>
+            Indeterminate state
+            </summary>
+        </member>
+        <member name="F:AdapterBaseClasses.IO_State.HIGH">
+             <summary>
+            High state 
+             </summary>
+        </member>
+        <member name="F:AdapterBaseClasses.IO_State.LOW">
+             <summary>
+            Low state 
+             </summary>
+        </member>
+        <member name="T:AdapterBaseClasses.ComponentActionAttribute">
+            <summary>
+            Base implementation of IComponentActionAttribute used for marking component actions
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentActionAttribute.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            ctor
+            </summary>
+            <param name="memberAlias"></param>
+            <param name="memberDescription"></param>
+            <param name="memberId"></param>
+            <param name="isIndependent"></param>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionAttribute.MemberName">
+            <summary>
+            Method name
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionAttribute.MemberAlias">
+            <summary>
+            Method human readable alias
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionAttribute.MemberDescription">
+            <summary>
+            Description of method
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionAttribute.MemberID">
+            <summary>
+            Method ID
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionAttribute.IsIndependent">
+            <summary>
+            Flag indicating if method can run independently
+            </summary>
+        </member>
+        <member name="T:AdapterBaseClasses.ComponentStateAttribute">
+            <summary>
+            Base implementation of IComponentStateAttribute used for marking properties as component state
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentStateAttribute.#ctor">
+            <summary>
+            default ctor
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentStateAttribute.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            ctor
+            </summary>
+            <param name="memberName"></param>
+            <param name="memberAlias"></param>
+            <param name="memberDescription"></param>
+            <param name="memberId"></param>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentStateAttribute.MemberName">
+            <summary>
+            Property name
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentStateAttribute.MemberAlias">
+            <summary>
+            Human readable Property alias
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentStateAttribute.MemberDescription">
+            <summary>
+            Property description
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentStateAttribute.MemberID">
+            <summary>
+            Unique ID for Property
+            </summary>
+        </member>
+        <member name="T:AdapterBaseClasses.ComponentActionParameterAttribute">
+            <summary>
+            Base implementation of IComponentActionParameterAttribute used for marking action parameters
+            </summary>
+        </member>
+        <member name="M:AdapterBaseClasses.ComponentActionParameterAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+            ctor
+            </summary>
+            <param name="memberAlias"></param>
+            <param name="memberDescription"></param>
+            <param name="memberId"></param>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionParameterAttribute.MemberName">
+            <summary>
+            Parameter name
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionParameterAttribute.MemberAlias">
+            <summary>
+            Human readable parameter alias
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionParameterAttribute.MemberDescription">
+            <summary>
+            parameter description 
+            </summary>
+        </member>
+        <member name="P:AdapterBaseClasses.ComponentActionParameterAttribute.MemberID">
+            <summary>
+            Unique ID for parameter
+            </summary>
+        </member>
+    </members>
+</doc>

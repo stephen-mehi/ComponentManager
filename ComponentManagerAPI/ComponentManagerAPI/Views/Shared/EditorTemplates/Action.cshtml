@@ -1,0 +1,120 @@
+@using ComponentManagerAPI.GeneralExtensions;
+@model IComponentActionStructure
+
+@if (Model == null)
+{
+    <div class="alert alert-danger">
+        <strong>Warning</strong> Action was not found
+    </div>
+}
+else if (string.IsNullOrEmpty(Model.ActionURL))
+{
+    <div class="alert alert-danger">
+        <strong>Warning</strong> Action was not configured correctly and is missing a server endpoint
+    </div>
+}
+else
+{
+
+    <form class="ComponentActionForm" action="@Model.ActionURL" method="put">
+        @if (Model.Parameters != null && Model.Parameters.Count > 0)
+        {
+            for (int i = 0; i < Model.Parameters.Count(); i++)
+            {
+                var parameter = Model.Parameters[i];
+
+                if (parameter != null)
+                {
+                    string paramAlias = string.IsNullOrEmpty(parameter.MemberAlias) ? (string.IsNullOrEmpty(parameter.MemberName) ? "unknown" : parameter.MemberName) : (parameter.MemberAlias);
+                    string paramDescription = string.IsNullOrEmpty(parameter.MemberDescription) ? "unknown" : parameter.MemberDescription;
+
+                    var test = ViewBag;
+
+                    if (Model.Parameters[i].ParameterType.IsPrimitive())
+                    {
+
+                        @Html.HiddenFor(model => model.Parameters[i].MemberName)
+                        @Html.HiddenFor(model => model.Parameters[i].MemberAlias)
+                        @Html.HiddenFor(model => model.Parameters[i].MemberDescription)
+                        @Html.HiddenFor(model => model.Parameters[i].MemberID)
+                        @Html.HiddenFor(model => model.Parameters[i].ParameterType)
+
+                        <div class="row">
+                            @Html.EditorFor(model => model.Parameters[i].ParameterValue, "Primitive", new Dictionary<string, object> { { "BoxedType", Model.Parameters[i].ParameterType }, { "LabelText", paramAlias } })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Warning</strong> Default action view can only support primitive types. Please configure to use custom ui in class metadata
+                        </div>
+                    }
+
+                    <div>
+                        <p>@paramDescription</p>
+                    </div>
+                }
+            }
+        }
+
+        @Html.HiddenFor(model => model.ActionURL)
+        @Html.HiddenFor(model => model.MemberAlias)
+        @Html.HiddenFor(model => model.MemberDescription)
+        @Html.HiddenFor(model => model.MemberID)
+        @Html.HiddenFor(model => model.IsIndependent)
+
+        @if (Model.IsIndependent)
+        {
+            @Html.HiddenFor(model => model.RequiresInitialize, new { value = false })
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequiresInitialize)
+                @Html.CheckBoxFor(model => model.RequiresInitialize, new { @class = "form-control"})
+            </div>
+
+        }
+
+        <input type="submit" class="btn btn-primary" value="Execute" />
+
+        <div class="ActionExecutionErrorMessage alert alert-danger">
+            <a href="#" class="close" aria-label="close">X</a>
+            <strong>Error</strong> Action failed to execute
+        </div>
+
+        <div class="ActionExecutionSuccessMessage alert alert-success">
+            <a href="#" class="close" aria-label="close">X</a>
+            <strong>Success!</strong> Action executed successfully
+        </div>
+
+        <div>
+            @{
+                string currentUri = string.IsNullOrEmpty(ViewBag.ProfileName) ?
+                    Url.RouteUrl("InvokeActionOnComponentObjectProfile_Active", new { ComponentID = ViewBag.ComponentID, ActionID = Model.MemberID }, "http", Url.ActionContext.HttpContext.Request.Host.ToString())
+                    :
+                    Url.RouteUrl("InvokeActionOnComponentObjectProfile", new { ComponentID = ViewBag.ComponentID, ProfileName = ViewBag.ProfileName, ActionID = Model.MemberID }, "http", Url.ActionContext.HttpContext.Request.Host.ToString());
+
+                string uriMessage = "URI: PUT " + currentUri;
+            }
+
+            <h4><strong>API Info</strong></h4>
+            <p class="actionUriText">@uriMessage</p>
+            <h5>Expected Parameters(json dictionary in request body)</h5>
+            <ol>
+                @if (Model.Parameters != null && Model.Parameters.Count > 0)
+                {
+                    for (int i = 0; i < Model.Parameters.Count(); i++)
+                    {
+                        <li><strong>Name: </strong>@Model.Parameters.ElementAt(i).MemberName <strong>Type: </strong>@Model.Parameters.ElementAt(i).ParameterType</li>
+                    }
+                }
+            </ol>
+        </div>
+        <div>
+
+        </div>
+
+    </form>
+
+                }

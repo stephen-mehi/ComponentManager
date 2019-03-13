@@ -1,0 +1,33 @@
+@using System.Collections
+@using System.Linq
+
+@model IList
+
+@if (Model != null && Model.Count > 0)
+{
+    <br />
+    <div>
+
+        @{
+            string panelID = (Guid.NewGuid()).ToString();
+
+        }
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a class="panel-title" data-toggle="collapse" href="#Panel_@panelID"><span class="glyphicon glyphicon-plus"></span> <span>@Html.LabelFor(model => model)</span></a>
+            </div>
+            <div id="Panel_@panelID" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div>
+                            @Html.EditorFor(model => model[i])
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+            }

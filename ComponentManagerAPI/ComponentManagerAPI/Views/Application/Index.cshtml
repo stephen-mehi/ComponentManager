@@ -1,0 +1,306 @@
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+
+        $globalErrorModal = $("#GlobalErrorModal").modal();
+        $globalLoadingModal = $("#GlobalLoadingModal").modal();
+
+        //global ajax handlers
+        $(document).ajaxStart(function () {
+            $globalLoadingModal.modal("show");
+        });
+
+        $(document).ajaxStop(function () {
+            $globalLoadingModal.modal("hide");
+            $('a[title]').tooltip({ trigger: "hover" });
+        });
+
+        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+
+            var $modalErrorMessage = $("#GlobalErrorModal #ModalErrorMessage");
+
+            $globalErrorModal.find("#ModalErrorMessage").empty();
+
+            if (jqxhr.responseText) {
+                $globalErrorModal.find("#ModalErrorMessage").append(jqxhr.responseText);
+            } else {
+
+                $globalErrorModal.find("#ModalErrorMessage")
+                    .append("There was a problem processing " +
+                        "your request, and no error info was " +
+                        "supplied by the server. An email " +
+                        "notification may not have been sent, " +
+                        "so please contact automation engineer");
+            }
+
+            $globalErrorModal.modal("show");
+
+        });
+
+
+        $(document).on("click", "div.alert a.close", {}, function (event) {
+
+            //prevent normal function
+            event.preventDefault();
+            //get ref to self, anchor tag with close class inside div with an alert class
+            var $self = $(this);
+            //hide the closest alert div
+            $self.closest("div.alert").hide(250);
+
+
+        });
+
+
+        //*************************************LANDING PAGE SCRIPTS
+        $.LandingPageNameSpace = {};
+
+        $.LandingPageNameSpace.BuildNavLinks = function () {
+
+            $("#ComponentNavList").empty();
+
+            var linkText =
+                '<li><a href="@Url.Action("Index","Home")">Home</a></li>' +
+                '<li><a class="ComponentNavLink" href="@Url.RouteUrl("GetComponentObjects")">Registered Components</a></li>';
+
+            $("#ComponentNavList").append(linkText);
+
+        };
+
+        $.LandingPageNameSpace.HandleNavLinkRequest = function (event, $self) {
+
+            if ($self.attr("target") === "_blank") {
+                return;
+            }
+
+            //get component collection
+            var url = $self.attr("href");
+            var method = "get";
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                dataType: "html",
+                success: function (response) {
+                    $("#InnerBodyContentContainer").empty();
+                    $("#InnerBodyContentContainer").append(response);
+                }
+            };
+
+
+            event.preventDefault();
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+        };
+
+        //LANDING PAGE EVENT HANDLER HOOKUPS***************
+        $("body").on("click", "a.ComponentNavLink", {}, function (event) {
+
+            var $self = $(this);
+
+            $.LandingPageNameSpace.HandleNavLinkRequest(event, $self);
+
+        });
+
+
+        //COMPONENT COLLECTION NAMESPACE EVENT HANDLER HOOKUPS**********
+        $("#InnerBodyContentContainer").on("click", "a.GetProfilesLink", {}, function (event) {
+            var $self = $(this);
+            var $reqObj = $.ComponentCollectionNamespace.HandleGetProfilesRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("click", "#RefreshComponentsListLink", {}, function (event) {
+            var $self = $(this);
+            var $reqObj = $.ComponentCollectionNamespace.HandleRefreshComponentListRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("submit", "form.DeleteComponentForm", {}, function (event) {
+            var $self = $(this);
+            var $reqObj = $.ComponentCollectionNamespace.HandleDeleteComponentRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("submit", "form.RenameComponentForm", {}, function (event) {
+            var $self = $(this);
+            var $reqObj = $.ComponentCollectionNamespace.HandleRenameComponentRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("submit", "#CreateComponentForm", {}, function (event) {
+            var $self = $(this);
+            var $reqObj = $.ComponentCollectionNamespace.HandleCreateNewComponentRequest(event, $self);
+        });
+
+
+        //COMPONENT PROFILE EVENT HANDLER HOOKUPS**************
+        $("#InnerBodyContentContainer").on("submit", "#GetAdapterForm", {}, function (event) {
+            var $self = $(this);
+            $.ComponentProfileNameSpace.HandleAdapterRefreshClick(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("submit", "#ComponentProfileForm", {}, function (event) {
+            var $self = $(this);
+            $.ComponentProfileNameSpace.HandleUpdateProfileRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("change", "div.EndEffectorContainer .EndEffectorComponentID", {}, function () {
+
+            $.ComponentProfileNameSpace.HandleEndEffectorComponentChange($(this));
+
+        });
+
+        $("#InnerBodyContentContainer").on("submit", "#RenameComponentProfileForm", {}, function (event) {
+
+            $.ComponentProfilesNameSpace.HandleRenameProfileRequest(event, $(this));
+
+        });
+
+        
+
+
+
+        //NO LONGER USING BECAUSE END EFFECTORS DONT USE WEB REQUEST*******************
+
+        //$("#InnerBodyContentContainer").on("change", ".EndEffectorActionID", {}, function () {
+
+        //    $.ComponentProfileNameSpace.HandleBuildEndEffectorActionUri($(this));
+
+        //});
+
+        //$("#InnerBodyContentContainer").on("change", "div.EndEffectorContainer .EndEffectorAdapterProfile", {}, function () {
+
+        //    $.ComponentProfileNameSpace.HandleEndEffectorAdapterProfileChange($(this));
+
+        //});
+
+
+        //COMPONENT STATE EVENT HANDLER HOOKUPS*********************
+
+        $("#InnerBodyContentContainer").on("change", "#AdapterStateContainer #StreamComponentState", {}, function () {
+
+            $.AdapterStateNameSpace.HandleStreamStateChecked();
+
+        });
+
+
+
+        //COMPONENT PROFILES EVENT HANDLER HOOKUPS*********************
+        $("#InnerBodyContentContainer").on("click", "#RefreshComponentsProfilesListLink", {}, function (event) {
+            var $self = $(this);
+            $.ComponentProfilesNameSpace.HandleRefreshProfileListRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("submit", "form.DeleteComponentProfileForm", {}, function (event) {
+            var $self = $(this);
+            $.ComponentProfilesNameSpace.HandleDeleteProfileRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("click", "a.GetProfileLink", {}, function (event) {
+            var $self = $(this);
+            $.ComponentProfilesNameSpace.HandleGetProfileRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("submit", "#CreateComponentProfileForm", {}, function (event) {
+            var $self = $(this);
+            $.ComponentProfilesNameSpace.HandleCreateProfileRequest(event, $self);
+        });
+
+        $("#InnerBodyContentContainer").on("click", "a.GetActionsLink", {}, function (event) {
+
+            var $self = $(this);
+            $.ComponentProfilesNameSpace.HandleGetActionsRequest(event, $self);
+
+        });
+
+        $("#InnerBodyContentContainer").on("click", "a.GetStateLink", {}, function (event) {
+
+            var $self = $(this);
+            $.ComponentProfilesNameSpace.HandleGetStateRequest (event, $self);
+
+        });
+
+        //COMPONENT ACTIONS EVENT HANDLER HOOK UPS************************
+        $("#InnerBodyContentContainer").on("submit", ".ComponentActionForm", {}, function (event) {
+            var $self = $(this);
+            $.ComponentActionNamespace.HandleActionExecuteRequest(event, $self);
+        });
+
+
+        $.LandingPageNameSpace.BuildNavLinks();
+
+    });
+
+</script>
+
+
+<div id="InnerBodyContentContainer">
+
+    <br />
+    <br />
+    <h3><strong>Component Discovery Service</strong></h3>
+    <p>Use this application to register, monitor, and manage pool of device plugins for the current host: @Url.ActionContext.HttpContext.Request.Host</p>
+    <div>
+        <p>Semantic Reference:</p>
+        <ol>
+            <li>
+                <p>
+                    <strong>Component: </strong>Abstract device plugin such as 'Z Axis Motor'
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Profile: </strong>
+                    concrete plugin instance, a specific profile for an abstract component.
+                    For example, a Component might be 'Z Axis Motor' and the corresponding Component Profile might be 'Fast'.
+                    A profile wraps both type load metadata and plugin settings.
+                </p>
+            </li>
+        </ol>
+    </div>
+
+    <br />
+
+    <p>All plugin functionality is exposed through a RESTful interface. The URIs can be viewed in the actions node for a component</p>
+
+</div>
+
+<div data-backdrop="false" data-show="false" class="modal fade" id="GlobalLoadingModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Loading</h4>
+            </div>
+            <div class="modal-body">
+                <div class="loader"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div data-backdrop="false" data-show="false" class="modal fade" id="GlobalErrorModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Error!</h4>
+            </div>
+            <div class="modal-body">
+                <p id="ModalErrorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Dismiss</button>
+            </div>
+        </div>
+    </div>
+</div>

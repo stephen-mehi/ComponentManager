@@ -1,0 +1,49 @@
+@model IDictionary<string, ICartesianCoordinates>
+
+@if (Model != null && Model.Count > 0)
+{
+
+    <div>
+
+        @{
+            string panelID = (Guid.NewGuid()).ToString();
+        }
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a class="panel-title" data-toggle="collapse" href="#Panel_@panelID"><span class="glyphicon glyphicon-plus"></span><span>@Html.LabelFor(model => model)</span></a>
+            </div>
+            <div id="Panel_@panelID" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    <div>
+                        <table class="table table-striped table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>X</td>
+                                    <td>Y</td>
+                                    <td>Z</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var kvp in Model)
+                                {
+                                    <tr>
+                                        <td>@kvp.Key</td>
+                                        <td>@kvp.Value.X_Axis</td>
+                                        <td>@kvp.Value.Y_Axis</td>
+                                        <td>@kvp.Value.Z_Axis</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            }

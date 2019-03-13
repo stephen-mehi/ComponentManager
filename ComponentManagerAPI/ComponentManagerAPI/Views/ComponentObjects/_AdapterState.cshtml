@@ -1,0 +1,48 @@
+﻿@using System.Reflection;
+@using System.ComponentModel.DataAnnotations;
+
+@model IComponentAdapter
+
+@if (Model != null)
+{
+
+    //get all props with display attribute and any attributes that implement the state attr interface
+    var props =
+    Model
+    .GetType()?
+    .GetProperties(BindingFlags.Instance | BindingFlags.Public)?
+    .Where(p =>
+    p.IsDefined(typeof(DisplayAttribute), true)
+    &&
+    p.GetCustomAttributes().Any(a => typeof(IComponentStateAttribute).IsAssignableFrom(a.GetType())));
+
+
+    <br />
+    <div id="AdapterState">
+
+        @{
+            string panelID = (Guid.NewGuid()).ToString();
+        }
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a class="panel-title" data-toggle="collapse" href="#Panel_@panelID"><span class="glyphicon glyphicon-plus"></span> <span>@Html.LabelFor(model => model)</span></a>
+            </div>
+            <div id="Panel_@panelID" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    @foreach (var prop in props)
+                    {
+                        Type propType = prop.GetType();
+
+                        string propName = prop.Name;
+
+                        <div class="row form-group">
+                            @Html.Editor(propName)
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+            }

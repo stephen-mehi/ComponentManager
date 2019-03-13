@@ -1,0 +1,113 @@
+
+@model object
+
+@{
+    string labelText = null;
+}
+
+@if (ViewData.ContainsKey("LabelText") && ViewData["LabelText"] != null)
+{
+    labelText = ViewData["LabelText"] as string;
+}
+
+@Html.Label("", labelText, new { @class = "col-sm-4 control-label" })
+
+
+<div class="col-sm-6">
+
+    @{
+        string className = "form-control";
+        string classKeyName = "class";
+
+        if (ViewData.ContainsKey(classKeyName))
+        {
+            ViewData[classKeyName] = ViewData[classKeyName] + " " + className;
+        }
+        else
+        {
+            ViewData.Add(classKeyName, className);
+        }
+
+
+        Type modType;
+        object _modType;
+
+        if (ViewData.TryGetValue("BoxedType", out _modType))
+        {
+            modType = (Type)_modType;
+        }
+        else
+        {
+            if (Model == null)
+            {
+                modType = typeof(object);
+            }
+            else
+            {
+                modType = Model.GetType();
+            }
+        }
+
+    }
+
+
+
+    @if (modType.Equals(typeof(bool)))
+    {
+        @Html.CheckBox("", ViewData)
+
+    }
+    else if (modType.Equals(typeof(char)) || modType.Equals(typeof(string)) || modType.Equals(typeof(object)))
+    {
+        @Html.TextBox("", Model, ViewData)
+    }
+    else if (modType.Equals(typeof(DateTime)))
+    {
+
+        string typeKeyName = "type";
+        string typeName = "date";
+
+        if (ViewData.ContainsKey(typeKeyName))
+        {
+            ViewData[typeKeyName] = typeName;
+        }
+        else
+        {
+            ViewData.Add(typeKeyName, typeName);
+        }
+
+        @Html.TextBox("", ((DateTime)Model).ToString("yyyy-MM-dd"), ViewData)
+    }
+    else if (typeof(Enum).IsAssignableFrom(modType))
+    {
+
+        var values = Enum.GetValues(modType).Cast<object>()
+                         .Select(v => new SelectListItem
+                         {
+                             Selected = v.Equals(Model),
+                             Text = v.ToString(),
+                             Value = v.ToString()
+                         });
+
+        @Html.DropDownList("", values, ViewData)
+
+    }
+    else
+    {
+        string typeKeyName = "type";
+        string typeName = "number";
+
+        if (ViewData.ContainsKey(typeKeyName))
+        {
+            ViewData[typeKeyName] = typeName;
+        }
+        else
+        {
+            ViewData.Add(typeKeyName, typeName);
+        }
+
+
+        @Html.TextBox("", Model, ViewData)
+    }
+
+</div>

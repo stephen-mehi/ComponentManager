@@ -1,0 +1,106 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.actionUriText {
+    overflow-wrap: break-word;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    min-width: 280px;
+}
+
+input[type="checkbox"] {
+    width: 25px;
+    min-width: 25px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.LinkStyle {
+    color: coral;
+    cursor: pointer;
+}
+
+
+
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+
+.smallLoader {
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #3498db;
+    width: 35px;
+    height: 35px;
+    -webkit-animation: spin 2s linear infinite;
+    -moz-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.panel {
+    margin: 5px 5px 5px 5px;
+}
+
+.alert {
+    display: none;
+}

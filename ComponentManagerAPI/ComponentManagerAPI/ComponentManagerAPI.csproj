@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Shared\DisplayTemplates\**" />
+    <Compile Remove="wwwroot\lib\remarkable\**" />
+    <Content Remove="Views\Shared\DisplayTemplates\**" />
+    <Content Remove="wwwroot\lib\remarkable\**" />
+    <EmbeddedResource Remove="Views\Shared\DisplayTemplates\**" />
+    <EmbeddedResource Remove="wwwroot\lib\remarkable\**" />
+    <None Remove="Views\Shared\DisplayTemplates\**" />
+    <None Remove="wwwroot\lib\remarkable\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fiveprime.Automation.CommonServiceLibrary.CommonServiceInterfaces" Version="2018.9.6.1" />
+    <PackageReference Include="FivePrime.Automation.CommonServiceLibrary.EmailService" Version="2018.9.10.1" />
+    <PackageReference Include="FivePrime.Automation.CommonServiceLibrary.GenericFactoryService" Version="2018.9.10.1" />
+    <PackageReference Include="FivePrime.Automation.CommonServiceLibrary.Logger" Version="2018.9.6.3" />
+    <PackageReference Include="Fiveprime.Automation.CommonServiceLibrary.ModelBinderService" Version="2018.8.28.2" />
+    <PackageReference Include="FivePrime.Automation.CommonServiceLibrary.SerializationService" Version="2018.9.10.1" />
+    <PackageReference Include="FivePrime.Automation.CommonServiceLibrary.TypeManipulationService" Version="2018.9.10.1" />
+    <PackageReference Include="Fiveprime.Automation.ComponentManagerAPI.ComponentInterfaces" Version="2018.8.28.1" />
+    <PackageReference Include="Fiveprime.Automation.ComponentManagerAPI.ComponentManager" Version="2018.9.10.6" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Application\" />
+  </ItemGroup>
+
+</Project>

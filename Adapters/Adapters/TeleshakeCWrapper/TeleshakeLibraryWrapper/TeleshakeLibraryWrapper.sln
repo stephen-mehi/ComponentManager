@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TeleshakeLibraryWrapper", "TeleshakeLibraryWrapper\TeleshakeLibraryWrapper.vcxproj", "{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Debug|x64.ActiveCfg = Debug|x64
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Debug|x64.Build.0 = Debug|x64
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Debug|x86.ActiveCfg = Debug|Win32
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Debug|x86.Build.0 = Debug|Win32
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Release|x64.ActiveCfg = Release|x64
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Release|x64.Build.0 = Release|x64
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Release|x86.ActiveCfg = Release|Win32
+		{8005E4B6-331E-4720-BEE9-E3EFE103EBF7}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FC0632B-D8E0-42E3-A3D3-25F7B0564873}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://fpt-webapplications.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TeleshakeLibraryWrapper\\TeleshakeLibraryWrapper.vcxproj
+		SccProjectName1 = TeleshakeLibraryWrapper
+		SccLocalPath1 = TeleshakeLibraryWrapper
+	EndGlobalSection
+EndGlobal

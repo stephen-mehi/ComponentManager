@@ -1,0 +1,157 @@
+@model IList<IComponentActionStructure>
+
+<script>
+
+    $(document).ready(function () {
+
+        $.ComponentActionNamespace = {};
+
+        $.ComponentActionNamespace.BuildNavLinks = function () {
+
+            $("#ComponentNavList").empty();
+
+            var linkText =
+                '<li><a href="@Url.Action("Index","Home")">Home</a></li>' +
+                '<li><a class="ComponentNavLink" href="@Url.RouteUrl("GetComponentObjects")">Registered Components</a></li>' +
+                '<li><a class="ComponentNavLink" href="@Url.RouteUrl("GetComponentObjectProfile", new { ComponentID = ViewBag.ComponentID, ProfileName = ViewBag.ProfileName })">Component Profile</a></li>';
+
+
+
+            $("#ComponentNavList").append(linkText);
+
+        };
+
+
+        $.ComponentActionNamespace.HandleActionExecuteRequest = function (event, $self) {
+
+            //return if should open new tab
+            if ($self.attr("target") === "_blank") {
+                return null;
+            }
+
+            var url = $self.attr("action");
+            var method = $self.attr("method");
+            //var data = $self.serialize();
+            var data = $("#ComponentActions form").serialize();
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                data: data,
+                method: method,
+                dataType: "html",
+                beforeSend: function () {
+                    $self.find(".ActionExecutionErrorMessage").hide(250);
+                    $self.find(".ActionExecutionSuccessMessage").hide(250);
+                },
+                success: function (response) {
+
+                    $self.find(".ActionExecutionSuccessMessage").replaceWith(response);
+                    $self.find(".ActionExecutionSuccessMessage").show(250);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                    $self.find(".ActionExecutionErrorMessage").show(250);
+                }
+            };
+
+            event.preventDefault();//prevent normal submission
+
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+
+        };
+
+
+        $.ComponentActionNamespace.BuildNavLinks();
+
+    });
+
+</script>
+
+<div id="ComponentActions">
+
+    @{
+        string CompID = "Component ID: " + (string.IsNullOrEmpty(ViewBag.ComponentID) ? "Unknown" : ViewBag.ComponentID);
+        string ProfName = "Profile Name: " + (string.IsNullOrEmpty(ViewBag.ProfileName) ? "Unknown" : ViewBag.ProfileName);
+    }
+
+    <div>
+        <h3>@CompID</h3>
+        <h3>@ProfName</h3>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Actions
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                @if (Model == null || Model.Count == 0)
+                {
+                    <li>
+                        <a data-toggle="tab" href="#NoActions">None</a>
+                    </li>
+                }
+                else
+                {
+                    @foreach (var action in Model)
+                    {
+                        <li>
+                            <a data-toggle="tab" href="#@action.MemberID">
+                                <h4 class="list-group-item-heading">@action.MemberAlias</h4>
+                                <p class="list-group-item-text">@action.MemberDescription</p>
+                            </a>
+                        </li>
+                    }
+                }
+
+            </ul>
+        </li>
+    </ul>
+
+    <div class="tab-content well">
+        @if (Model == null || Model.Count == 0)
+        {
+            <div class="alert alert-danger">
+                <strong>Warning</strong> No actions were found for this component
+            </div>
+        }
+        else
+        {
+
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+
+                var currentAction = Model.ElementAt(i);
+
+                //GET DESCRIPTION AND ALIAS FOR ACITON
+                string actionAlias = string.IsNullOrEmpty(currentAction.MemberAlias) ? (string.IsNullOrEmpty(currentAction.MemberName) ? "unknown" : currentAction.MemberName) : (currentAction.MemberAlias);
+                string actionDescription = string.IsNullOrEmpty(currentAction.MemberDescription) ? "unknown" : currentAction.MemberDescription;
+
+                <div id="@currentAction.MemberID" class="tab-pane fade">
+
+                    <h4><strong>@actionAlias</strong></h4>
+                    <p>@actionDescription</p>
+
+                    @if (string.IsNullOrEmpty(currentAction.ActionURL))
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Warning</strong> Action was not configured correctly and is missing a server endpoint
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model[i])
+                    }
+
+                </div>
+            }
+        }
+
+    </div>
+
+</div>

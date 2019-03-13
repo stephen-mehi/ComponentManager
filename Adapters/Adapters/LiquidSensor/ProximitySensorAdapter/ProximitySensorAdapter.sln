@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProximitySensorAdapter", "ProximitySensorAdapter\ProximitySensorAdapter.csproj", "{02D3AA53-2CF7-446D-8965-6E6ED9602B86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02D3AA53-2CF7-446D-8965-6E6ED9602B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D3AA53-2CF7-446D-8965-6E6ED9602B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D3AA53-2CF7-446D-8965-6E6ED9602B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D3AA53-2CF7-446D-8965-6E6ED9602B86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21F4E1D0-E837-4B7A-8B0A-7655D519335B}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://fpt-webapplications.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ProximitySensorAdapter\\ProximitySensorAdapter.csproj
+		SccProjectName1 = ProximitySensorAdapter
+		SccLocalPath1 = ProximitySensorAdapter
+	EndGlobalSection
+EndGlobal

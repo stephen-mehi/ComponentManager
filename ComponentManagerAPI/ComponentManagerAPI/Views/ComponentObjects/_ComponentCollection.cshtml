@@ -1,0 +1,399 @@
+@model IEnumerable<IComponentConstructionData>
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $.ComponentCollectionNamespace = {};
+
+
+        $.ComponentCollectionNamespace.BuildNavLinks = function () {
+
+            $("#ComponentNavList").empty();
+
+            var linkText =
+                '<li><a href="@Url.Action("Index","Home")">Home</a></li>' +
+                '<li><a class="ComponentNavLink" href="@Url.RouteUrl("GetComponentObjects")">Registered Components</a></li>';
+
+            $("#ComponentNavList").append(linkText);
+
+        };
+
+
+        $.ComponentCollectionNamespace.HandleRefreshComponentListRequest = function (event, $self) {
+
+            //return if should open new tab
+            if ($self.attr("target") === "_blank") {
+                return null;
+            }
+
+
+            var url = $self.attr("href");
+            var method = "get";
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                dataType: "html",
+                success: function (response) {
+
+                    $("#ComponentCollectionTable").replaceWith($(response).find("#ComponentCollectionTable"));
+
+                }
+
+            };
+
+            event.preventDefault();//prevent normal submission
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+
+        };
+
+        $.ComponentCollectionNamespace.HandleDeleteComponentRequest = function (event, $self) {
+
+            //return if should open new tab
+            if ($self.attr("target") === "_blank") {
+                return null;
+            }
+
+
+            var url = $self.attr("action");
+            var data = $self.serialize();
+            var method = $self.attr("method");
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                data: data,
+                dataType: "html",
+                success: function (response) {
+
+                    //find modal
+                    var $modal = $self.closest(".modal");
+
+                    $modal.modal("hide");
+
+                    //after hidden
+                    $modal.on('hidden.bs.modal', function () {
+
+                        //get comps
+                        var ajaxOptions = {
+                            url: "@Url.RouteUrl("GetComponentObjects")",
+                            dataType: "html",
+                            success: function (response) {
+                                $("#ComponentCollectionTable").replaceWith($(response).find("#ComponentCollectionTable"));
+                            },
+                            error: function (xhr, status, error) {
+                                alert("error");
+                            }
+                        };
+
+                        $.ajax(ajaxOptions);
+                    });
+
+                }
+
+            };
+
+            event.preventDefault();//prevent normal submission
+
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+
+        };
+
+        $.ComponentCollectionNamespace.HandleRenameComponentRequest = function (event, $self) {
+
+            //return if should open new tab
+            if ($self.attr("target") === "_blank") {
+                return null;
+            }
+
+
+            var url = $self.attr("action");
+            var data = $self.serialize();
+            var method = $self.attr("method");
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                data: data,
+                dataType: "html",
+                success: function (response) {
+
+                    //find modal
+                    var $modal = $self.closest(".modal");
+
+                    $modal.modal("hide");
+
+                    //after hidden
+                    $modal.on('hidden.bs.modal', function () {
+
+                        //get comps
+                        var ajaxOptions = {
+                            url: "@Url.RouteUrl("GetComponentObjects")",
+                            dataType: "html",
+                            success: function (response) {
+                                $("#ComponentCollectionTable").replaceWith($(response).find("#ComponentCollectionTable"));
+                            }
+
+                        };
+
+                        $.ajax(ajaxOptions);
+                    });
+
+                }
+
+            };
+
+            event.preventDefault();//prevent normal submission
+
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+
+        };
+
+        $.ComponentCollectionNamespace.HandleCreateNewComponentRequest = function (event, $self) {
+
+            //return if should open new tab
+            if ($self.attr("target") === "_blank") {
+                return null;
+            }
+
+
+            var url = $self.attr("action");
+            var data = $self.serialize();
+            var method = $self.attr("method");
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                data: data,
+                dataType: "html",
+                success: function (response) {
+
+                    //find modal
+                    var $modal = $self.closest(".modal");
+
+                    $modal.modal("hide");
+
+                    //after hidden
+                    $modal.on('hidden.bs.modal', function () {
+
+                        //get comps
+                        var ajaxOptions = {
+                            url: "@Url.RouteUrl("GetComponentObjects")",
+                            method: "get",
+                            dataType: "html",
+                            success: function (response) {
+                                $("#ComponentCollectionTable").replaceWith($(response).find("#ComponentCollectionTable"));
+                            }
+                        };
+
+                        $.ajax(ajaxOptions);
+                    });
+
+                }
+
+            };
+
+            event.preventDefault();//prevent normal submission
+
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+
+        };
+
+        $.ComponentCollectionNamespace.HandleGetProfilesRequest = function (event, $self) {
+
+            //return if should open new tab
+            if ($self.attr("target") === "_blank") {
+                return null;
+            }
+
+
+            var url = $self.attr("href");
+            var method = "get";
+
+            //build request
+            var ajaxOptions = {
+                url: url,
+                method: method,
+                dataType: "html",
+                success: function (response) {
+
+                    $("#ComponentCollectionContainer").replaceWith(response);
+                }
+
+            };
+
+            event.preventDefault();//prevent normal submission
+
+
+            //return ref to ajax obj
+            return $.ajax(ajaxOptions);
+
+        };
+
+
+        $.ComponentCollectionNamespace.BuildNavLinks();
+
+    });
+
+</script>
+
+<div id="ComponentCollectionContainer" class="well">
+
+
+    
+
+    <h2>Registered Components</h2>
+
+    <a id="RefreshComponentsListLink" title="Refresh List" href="@Url.RouteUrl("GetComponentObjects")" data-method="get"><span class="glyphicon glyphicon-refresh"></span></a>
+
+    <div>
+        <table id="ComponentCollectionTable" class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>Component ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (Model != null && Model.Count() > 0)
+                {
+                    int i = 0;
+                    foreach (var compProfile in Model)
+                    {
+                        <tr>
+                            <td>@compProfile.ComponentID</td>
+                            <td>
+                                @{
+                                    string deleteModalID = "DeleteComponentModal" + "_" + i;
+                                    string deleteModalIDprefixed = "#DeleteComponentModal" + "_" + i;
+                                }
+
+                                <a class="btn btn-sm btn-danger" title="Delete component" href="#" data-toggle="modal" data-target="@deleteModalIDprefixed"><span class="glyphicon glyphicon-remove"></span></a>
+
+                                <div data-backdrop="false" class="modal fade" id="@deleteModalID" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Delete Component</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete this component? This will also delete all associated profiles.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form class="DeleteComponentForm" action="@Url.RouteUrl("DeleteComponentObject", new { ComponentID = compProfile.ComponentID })" method="delete">
+                                                    <div class="form-group">
+                                                        <input type="submit" class="btn btn-success" value="Delete" />
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span> | </span>
+
+                                <a class="GetProfilesLink btn btn-sm btn-primary" title="View Component Profiles" href="@Url.RouteUrl("GetComponentObjectProfiles", new { ComponentID = compProfile.ComponentID})" data-method="get"><span class="glyphicon glyphicon-list"></span></a>
+
+                                <span> | </span>
+
+                                @{
+                                    string renameModalID = "RenameComponentModal" + "_" + i;
+                                    string renameModalIDprefixed = "#RenameComponentModal" + "_" + i;
+                                }
+
+                                <a class="btn btn-sm btn-info" title="Rename component" href="#" data-toggle="modal" data-target="@renameModalIDprefixed"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                                <div data-backdrop="false" class="modal fade" id="@renameModalID" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Rename Component</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Please supply new unique name for component</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form class="RenameComponentForm" action="@Url.RouteUrl("RenameComponentObject", new { ComponentID = compProfile.ComponentID, NewComponentID = "NewName"})" method="put">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="NewComponentID">New Component ID</label>
+                                                        <input class="form-control" id="NewComponentID" type="text" name="NewComponentID" value="NewName">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" class="btn btn-success" value="Submit" />
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                                            i++;
+                                        }
+
+                                    }
+            </tbody>
+
+        </table>
+    </div>
+
+
+
+
+    <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#CreateComponentModal"><span class="glyphicon glyphicon-plus-sign"></span> Create New</a>
+
+
+    <div data-backdrop="false" class="modal fade" id="CreateComponentModal" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create Component</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please supply unique name for component</p>
+                </div>
+                <div class="modal-footer">
+                    <form id="CreateComponentForm" action="@Url.RouteUrl("CreateComponentObject", new { ComponentID = "NewComponent"})" method="post">
+                        <div class="form-group">
+                            <label class="control-label" for="NewComponentName">New Component Name</label>
+                            <input id="NewComponentName" class="form-control" type="text" name="@nameof(IComponentConstructionData.ComponentID)">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Create New Component" />
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

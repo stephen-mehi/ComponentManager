@@ -1,0 +1,25 @@
+@model IComponentAdapter
+
+<div id="AdapterProfile">
+    <script>
+
+        $(document).ready(function () {
+            $.ComponentProfileNameSpace.PopulateAllEndEffectorComponentIds();
+        });
+
+    </script>
+
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">
+            <strong>Warning</strong> No component adapter found
+        </div>
+    }
+    else
+    {
+
+        @Html.EditorFor(model => model)
+    }
+</div>
+
+

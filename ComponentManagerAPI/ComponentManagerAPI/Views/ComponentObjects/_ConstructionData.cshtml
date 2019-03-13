@@ -1,0 +1,14 @@
+@model IComponentConstructionData
+
+<div id="ConstructionDataProfile">
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">
+            <strong>Warning</strong> No component construction data found
+        </div>
+    }
+    else
+    {
+        @Html.EditorFor(model => model)
+    }
+</div>

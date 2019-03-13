@@ -1,0 +1,89 @@
+@model ICartesianEndEffectorMetadata
+
+<script>
+    
+</script>
+
+<div class="EndEffectorContainer">
+
+    @{
+        string panelID;
+
+        panelID = (Guid.NewGuid()).ToString();
+
+    }
+
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a class="panel-title" data-toggle="collapse" href="#Panel_@panelID"><span class="glyphicon glyphicon-plus"></span> <span>@Html.LabelFor(model => model) : @Model.Name</span></a>
+        </div>
+        <div id="Panel_@panelID" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                <div class="row form-group">
+                    @Html.EditorFor(model => model.Name)
+                </div>
+
+                @{
+                        var compIdSelectList = new List<SelectListItem>();
+                        var compIdViewData = new Dictionary<string, object>() { { "class", "form-control EndEffectorComponentID" } };
+
+                        if (!string.IsNullOrEmpty(Model.ComponentID))
+                        {
+                            compIdSelectList.Add(new SelectListItem() { Text = Model.ComponentID, Selected = true, Value = Model.ComponentID });
+                        }
+                        else
+                        {
+                            compIdSelectList.Add(new SelectListItem() { Text = string.Empty, Selected = true, Value = string.Empty });
+                        }
+                }
+
+                <div class="row form-group">
+                    @Html.LabelFor(model => Model.ComponentID, null, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DropDownListFor(model => Model.ComponentID, compIdSelectList, "", compIdViewData)
+                    </div>
+                </div>
+
+                @{
+                        var adapterSelectList = new List<SelectListItem>();
+                        var adapterViewData = new Dictionary<string, object>() { { "class", "form-control EndEffectorAdapterProfile" } };
+
+                        if (!string.IsNullOrEmpty(Model.AdapterProfile))
+                        {
+                            adapterSelectList.Add(new SelectListItem() { Text = Model.AdapterProfile, Selected = true, Value = Model.AdapterProfile });
+                        }
+                        else
+                        {
+                            adapterSelectList.Add(new SelectListItem() { Text = string.Empty, Selected = true, Value = string.Empty });
+                        }
+                }
+
+                <div class="row form-group">
+                    @Html.LabelFor(model => Model.AdapterProfile, null, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-6">
+                        @Html.DropDownListFor(model => Model.AdapterProfile, adapterSelectList, "", adapterViewData)
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    @Html.EditorFor(model => Model.Description)
+                </div>
+                <div class="row form-group">
+                    @Html.EditorFor(model => Model.XOffset)
+                </div>
+                <div class="row form-group">
+                    @Html.EditorFor(model => Model.YOffset)
+                </div>
+                <div class="row form-group">
+                    @Html.EditorFor(model => Model.ZOffset)
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,21 @@
+@model Enum
+
+@{
+
+    var values = Enum.GetValues(ViewData.ModelMetadata.ModelType).Cast<object>()
+                     .Select(v => new SelectListItem
+                     {
+                         Selected = v.Equals(Model),
+                         Text = v.ToString(),
+                         Value = v.ToString()
+                     });
+
+    ViewData.Add("class", "form-control");
+}
+
+@Html.Label("", null, new { @class = "col-sm-3 control-label" })
+
+<div class="col-sm-5">
+@Html.DropDownList("", values, ViewData)
+</div>
+

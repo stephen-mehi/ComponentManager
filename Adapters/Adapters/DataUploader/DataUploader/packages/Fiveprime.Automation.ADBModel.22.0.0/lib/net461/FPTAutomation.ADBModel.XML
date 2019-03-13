@@ -1,0 +1,2022 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FPTAutomation.ADBModel</name>
+    </assembly>
+    <members>
+        <member name="T:FPTAutomation.ADBModel.Atom">
+            <summary>
+            An internal class to represent Object Elements
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.ContainsObject(System.String)">
+            <summary>
+            Returns true if an XML element specified by an Xpath expression is found in the Objects field
+            </summary>
+            <param name="Xpath">A String that contains an XPath expression.</param>
+            <returns>true if an XML element specified by an Xpath expression is found in the Objects field</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.AddElementToObjects(System.String,System.Xml.Linq.XElement,System.Boolean)">
+            <summary>
+            Adds an XML Element to the Objects XML. Use "/" to indicate root node in ParentXPath, as 
+            is standard with XPath. If AllowDuplicates is false, throws an Exception if other elements exist.
+            </summary>
+            <param name="parentXPath">Xpath to specficy the location to add the new element</param>
+            <param name="objElement">The XML element to add</param>
+            <param name="allowDuplicates">Set to true to allow duplicate elements</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.ReplaceElementInObjects(System.String,System.Xml.Linq.XElement,System.Boolean)">
+            <summary>
+            Replaces an XML Element in Objects XML. Use "/" to indicate root node in ParentXPath, as 
+            is standard with XPath. If createNewIfNoneExist is true, creates new XElement at specified
+            even one does not already exist. Throws an Exception if duplicate elements are found that match
+            element to be replaced or parent node.
+            </summary>
+            <param name="xPath">Xpath to specify the location to add the new element</param>
+            <param name="objElement">The XML element to add</param>
+            <param name="createNewIfNoneExist">Set to true to add the element it doesn't already exist.</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.GetObject(System.String,System.Boolean@)">
+            <summary>
+            Retrieves an XML element from the objects XML using a Xpath string expression.
+            The HasDuplicates parameter is set to true if more than one element matches the expression
+            </summary>
+            <param name="Xpath">A String that contains an XPath expression.</param>
+            <param name="HasDuplicates">A boolean OUT parameter that is set to true if more than one element that matches the expression</param>
+            <returns>An XElement, or null.</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.GetObject(System.String)">
+            <summary>
+            Retrieves an XML element from the objects XML using a Xpath string expression.
+            </summary>
+            <param name="Xpath">A String that contains an XPath expression.</param>
+            <returns>An XElement, or null.</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.GetObjects(System.String)">
+            <summary>
+            Retrieves a list of XML elements from the objects XML using a Xpath string expression.
+            </summary>
+            <param name="Xpath">A String that contains an XPath expression.</param>
+            <returns>An List of XElement(s), or null.</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.DeleteObject(System.String)">
+            <summary>
+            Delete a single object that matches the Xpath expression. If more than one object is found, an exception will be raised.
+            </summary>
+            <param name="Xpath"></param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.DeleteObjects(System.String)">
+            <summary>
+            Delete all objects that match the given Xpath Expression
+            </summary>
+            <param name="Xpath"></param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.UpdateObjects">
+            <summary>
+            Internal Method that is called every time ObjectsXML is changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.InitializeObjects">
+            <summary>
+             Internal Method that is called every time ObjectsXML is accessed. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Atom.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+             FPTMethod: Constructor for new Campaign
+            </summary>
+            <param name="name">The name of the Campaign</param>
+            <param name="subtype">The SubType of the Campaign</param>
+            <param name="type">The Type of the Campaign</param>
+            <param name="AutoGenerateId"> When true, the unique Id for the Campaign is automatically generated</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.FindFirstOrDefaultByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Campaign whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Campaign will be found
+            However, if the Key-Value combination is not unique multiple Campaigns will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Campaign"/> The first Campaign that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.FindCampaignIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  CampaignIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the CampaignId's of the Campaigns that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.FindByName(System.String)">
+            <summary>
+            Retreives a Campaign from using its Name field, If more than one Campaign has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Campaign</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.FindByKeyword(System.String)">
+            <summary>
+            Retreives a Campaign from using its Keywords field, If more than one Campaign has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.Campaign</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.FindByDescription(System.String)">
+            <summary>
+            Retreives a Campaign from using its Description field, If more than one Campaign has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Campaign</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Campaign.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Campaign.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Campaign.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Campaign.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Campaign.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.#ctor(System.String,FPTAutomation.ADBModel.ChildContainerType,System.Int32,System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            FPTMethod: Creates a new Container, assigns a unique Id to the Container
+            </summary>
+            <param name="name">The name of the Container</param>
+            <param name="childtype">An enum the determines whether the Container holds samples in wells or other containers. For example a Tube rack holds other containers(tubes) while a microtiter plate holds sample wells </param>
+            <param name="rows">The number of rows in the container</param>
+            <param name="columns">The number of columns in the container</param>
+            <param name="subtype"><see cref="T:System.String"/> The SubType of the Container, The SubType must exist in the ContainerTypeSchema table, defaults to 'Container'</param>
+            <param name="type"><see cref="T:System.String"/> The Type of the Container, The Type must exist in the ContainerTypeSchema table , defaults to 'Container'</param>
+            <param name="schemaVersion"><see cref="T:System.Int32"/> The schema version if any, defaults to 1</param>        
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.UpdateAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.InitializeAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.AddToParentContainer(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            This method is used to add a container to a parent container
+            </summary>
+            <param name="parentId"><see cref="T:System.Int32"/> The ContainerId of the parent container</param>
+            <param name="parentRow"><see cref="T:System.Int32"/>The row in the parent container that the child should belong to</param>
+            <param name="parentColumn"><see cref="T:System.Int32"/>The column in the parent container that the child should belong to </param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.AddToParentContainer(System.Int32,System.String)">
+            <summary>
+            This method is used to add a container to a parent container
+            </summary>
+            <param name="parentId"><see cref="T:System.Int32"/> The ContainerId of the parent container</param>
+            <param name="ParentWellName"><see cref="T:System.String"/>The name of the parent containers well, example "A5"</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.ClearChildContainersByPosition(System.Int32,System.Int32)">
+            <summary>
+            This Method removes ChildContainer from a specific row and column in the Parent Container
+            This allows for container recycle.
+            </summary>
+            <param name="ChildRow"><see cref="T:System.Int32"/>The row in the parent container that the child belongs to</param>
+            <param name="ChildColumn"><see cref="T:System.Int32"/>The column in the parent container that the child belongs to</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.ClearChildContainersByPosition(System.String)">
+            <summary>
+            This Method removes ChildContainer from a specific Well in the Parent Container
+            The well is specified by name, example "A5"
+            </summary>
+            <param name="WellName"><see cref="T:System.String"/>The name of the parent containers well from which to remove Children, example "A5"</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.ClearAllChildContainers">
+            <summary>
+            This method enables re-use of a container by removing all previous child containers from it. 
+            This is accomplished by setting the ParentId of the child container to null
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Container whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one container will be found
+            However, if the Key-Value combination is not unique multiple containers will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Container"/> The first container that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  ContainerIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the  attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the ContainerId's of the containers that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindAllByAttribute(System.String,System.String)">
+            <summary>
+            Retrieves a list of containers using the specified Attribute Key and Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindByBarcode(System.String)">
+            <summary>
+            Retreives a container from using its Barcode field, If more than one container has the same barcode the first or deafault is returned
+            </summary>
+            <param name="Barcode">The barcode to search by</param>
+            <returns>FPTAutomation.ADBModel.Container</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindByName(System.String)">
+            <summary>
+            Retreives a container from using its Name field, If more than one container has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Container</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindByKeyword(System.String)">
+            <summary>
+            Retreives a container from using its Keywords field, If more than one container has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.Container</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindByDescription(System.String)">
+            <summary>
+            Retreives a container from using its Description field, If more than one container has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Container</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Container.FindAllByBarcode(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Container.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Container.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Container.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Container.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.GetWellName(System.Int32,System.Int32)">
+            <summary>
+            A Helper method that generates a wellname from  row and column values
+            For example 'A1' will be returned for row =1 and column=1
+            </summary>
+            <param name="row">The index of the row that the well resides in</param>
+            <param name="col">The index of the column that the well resides in</param>
+            <returns>The well name</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.GetRowColFromWellName(System.String,System.Int32@,System.Int32@)">
+            <summary>
+            FPTMethod: This is a helper method to decipher the Row and Column of a Container from the WellName
+            For example a Well with name "A5" with set the column to 5 and Row to 1
+            </summary>
+            <param name="WellName">The name of the well, for example: "A5"</param>
+            <param name="Row"> out parameter for Row</param>
+            <param name="Col">out parameter for Column</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindAllIdsByField(System.String,System.String)">
+            <summary>
+            Retrieves a list of container ids using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of integers of the ContainerId's of the matching containers</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Container.FindAllByField(System.String,System.String)">
+            <summary>
+             Retrieves a list of containers using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of Containers matching the search</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Create a new dataset in the automation database
+            </summary>
+            <param name="name">The name of the Dataset</param>
+            <param name="subtype"><see cref="T:System.String"/> The SubType of the Dataset, The SubType must exist in the DatasetTypeSchema table, defaults to 'Dataset'</param>
+            <param name="type"><see cref="T:System.String"/> The Type of the Dataset, The Type must exist in the DatasetTypeSchema table , defaults to 'Dataset'</param>
+            <param name="schemaVersion"><see cref="T:System.Int32"/> The schema version if any, defaults to 1</param>    
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.UpdateAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.InitializeAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Dataset whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Dataset will be found
+            However, if the Key-Value combination is not unique multiple Datasets will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Dataset"/> The first Dataset that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  DatasetIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the DatasetId's of the Datasets that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindAllByAttribute(System.String,System.String)">
+            <summary>
+            Retrieves a list of Experiments using the specified Attribute Key and Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindByName(System.String)">
+            <summary>
+            Retreives a Dataset from using its Name field, If more than one Dataset has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Dataset</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindByKeyword(System.String)">
+            <summary>
+            Retreives a Dataset from using its Keywords field, If more than one Dataset has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.Dataset</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindByDescription(System.String)">
+            <summary>
+            Retreives a Dataset from using its Description field, If more than one Dataset has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Dataset</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Dataset.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Dataset.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Dataset.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindAllIdsByField(System.String,System.String)">
+            <summary>
+            Retrieves a list of Dataset ids using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of integers of the DatasetId's of the matching Datasets</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.FindAllByField(System.String,System.String)">
+            <summary>
+             Retrieves a list of Datasets using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of Datasets matching the search</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Dataset.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            FPTMethod: Creates a new Experiment, assigns a unique Id to the Experiment
+            </summary>
+            <param name="name">The name of the Experiment</param>
+            <param name="subtype"><see cref="T:System.String"/> The SubType of the Experiment, The SubType must exist in the ExperimentTypeSchema table, defaults to 'Experiment'</param>
+            <param name="type"><see cref="T:System.String"/> The Type of the Experiment, The Type must exist in the ExperimentTypeSchema table , defaults to 'Experiment'</param>
+            <param name="schemaVersion"><see cref="T:System.Int32"/> The schema version if any, defaults to 1</param>     
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.UpdateAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.InitializeAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Experiment whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Experiment will be found
+            However, if the Key-Value combination is not unique multiple Experiments will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Experiment"/> The first Experiment that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  ExperimentIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the  attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the ExperimentId's of the Experiments that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindAllByAttribute(System.String,System.String)">
+            <summary>
+            Retrieves a list of Experiments using the specified Attribute Key and Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindByName(System.String)">
+            <summary>
+            Retreives a Experiment from using its Name field, If more than one Experiment has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Experiment</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindByKeyword(System.String)">
+            <summary>
+            Retreives a Experiment from using its Keywords field, If more than one Experiment has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.Experiment</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindByDescription(System.String)">
+            <summary>
+            Retreives a Experiment from using its Description field, If more than one Experiment has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Experiment</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Experiment.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Experiment.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Experiment.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindAllIdsByField(System.String,System.String)">
+            <summary>
+            Retrieves a list of Experiment ids using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of integers of the ExperimentId's of the matching Experiments</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.FindAllByField(System.String,System.String)">
+            <summary>
+             Retrieves a list of Experiments using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of Experiments matching the search</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Experiment.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.#ctor(System.String,System.String)">
+            <summary>
+            Constructor that creates a new File
+            </summary>
+            <param name="name">The name to associate with the file</param>
+            <param name="filepath">The file path including the filename and extension</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.SaveLocal(System.String)">
+            <summary>
+            This method saves a copy of the file to the local directory specified in the directory path
+            
+            </summary>
+            <param name="DirectoryPath">The directory path where the file should be copied to, Do not include filename in directory path</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.OpenFile">
+            <summary>
+            This method opens a copy of the file. Any changes made to this file will not be reflected in the database.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.CopyStream(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            An internal helper method used to copy one stream to another.
+            </summary>
+            <param name="Input">Input stream</param>
+            <param name="Output">Output stream</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.FindByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first File whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one File will be found
+            However, if the Key-Value combination is not unique multiple Files will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.File"/> The first File that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.FindIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  FileIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the  attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the FileId's of the Files that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.FindAllByAttribute(System.String,System.String)">
+            <summary>
+            Retrieves a list of Files using the specified Attribute Key and Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.FindByName(System.String)">
+            <summary>
+            Retreives a File from using its Name field, If more than one File has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.File</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.FindByKeyword(System.String)">
+            <summary>
+            Retreives a File from using its Keywords field, If more than one File has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.File</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.FindByDescription(System.String)">
+            <summary>
+            Retreives a File from using its Description field, If more than one File has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.File</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.File.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.File.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.File.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.File.FindAllIdsByField(System.String,System.String)">
+            <summary>
+            Retrieves a list of File ids using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of integers of the FileId's of the matching Files</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.File.FindAllByField(System.String,System.String)">
+            <summary>
+             Retrieves a list of Files using the specified name of a Fixed Field in the Database and its Value
+            </summary>
+            <param name="Field">The name of the fixed field in the database (Example: UpdatedBy)</param>
+            <param name="Value">The value of the fixed field to search by</param>
+            <returns>A List of Files matching the search</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Location.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Location.UpdateAttributes">
+            <summary>
+            Constructor for Well
+            </summary>
+            <param name="containerId">The parent Containers Id</param>
+            <param name="row">The row in the parent container that the well belongs to</param>
+            <param name="column">The column in the parent container that the well belongs to</param>
+            
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Location.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Location.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Location.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.UpdateAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.InitializeAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.FindFirstOrDefaultByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Obj whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Obj will be found
+            However, if the Key-Value combination is not unique multiple Objs will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Obj"/> The first Obj that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.FindObjIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  ObjIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the ObjId's of the Objs that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.FindByName(System.String)">
+            <summary>
+            Retreives a Obj from using its Name field, If more than one Obj has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Obj</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.FindByKeyword(System.String)">
+            <summary>
+            Retreives a Obj from using its Keywords field, If more than one Obj has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.Obj</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.FindByDescription(System.String)">
+            <summary>
+            Retreives a Obj from using its Description field, If more than one Obj has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Obj</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Obj.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Obj.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Obj.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Obj.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Obj.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="T:FPTAutomation.ADBModel.Attributes">
+            <summary>
+            FPTClass: The Attributes class stores Key-Value pairs of <see cref="T:System.String"/> type and provides methods to add, modify, delete Key-Value pairs
+            The class also provides methods to Serialize to an XMLelement(<see cref="T:System.Xml.Linq.XElement"/>)and Deserialize from an XMLelement.
+            </summary>
+        </member>
+        <member name="F:FPTAutomation.ADBModel.Attributes.columnNames">
+            <summary>
+            A list of the names of the columns in the corresponding table in the database
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:FPTAutomation.ADBModel.Attributes.AttributeDictionary" -->
+        <member name="M:FPTAutomation.ADBModel.Attributes.#ctor">
+            <summary>
+            Default Constructor for Attributes, no parameters, uses StringComparer.CurrentCultureIgnoreCase IEqualityComparer for Keys
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.#ctor(System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+            Contstructor with the option to specify the IEqualityComparer{System.String} to compare Keys
+            </summary>
+            <param name="comparer"> the IEqualityComparer{System.String} to compare Keys</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.UpdateAttributes">
+            <summary>
+            Method that is called everytime a key-value pair is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.InitializeAttributes">
+            <summary>
+             Method that is called everytime a key-value pair is accessed. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.GetListOfColumnNames">
+            <summary>
+            Get a list of column names for a table in the database
+            </summary>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.Attributes.DeepCopyOfAttributesDictionary">
+            <summary>
+            FPTMethod: This property returns a deep copy of the Dictionary{string,string} usted to store the key-value pairs internally.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetAttribute(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.String"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> or <paramref name="Value"/> are null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetAttribute(System.String,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Int32"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetAttribute(System.String,System.Double,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Double"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> or <paramref name="Value"/> are null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetAttribute(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Boolean"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.GetAttribute(System.String,System.Boolean)">
+             <summary>
+            FPTMethod:  The method is used to retreive an attribute Value from an existing Key-Value pair attribute
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+             <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+             <exception cref="T:System.ArgumentException">This exception is raised when Key does not exist in the Attribute dictionary</exception>
+             <returns>Returns a <see cref="T:System.String"/> Value correspoding to the supplied Key, returns <see cref="!:null"/> if the  <paramref name="Key"/> does not exist .</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Attributes.SetSpecialAttribute(System.String,System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetSpecialAttribute(System.String,System.Int32)">
+            <summary>
+            FPTMethod: This method is used to initialize an existing Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Int32"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetSpecialAttribute(System.String,System.Double)">
+            <summary>
+            FPTMethod: This method is used to initialize an existing Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Double"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> or <paramref name="Value"/> are null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetSpecialAttribute(System.String,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to initialize an existing Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Boolean"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.TryGetAttribute(System.String,System.String@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it sets the attribute value to the out Value parameter and the method returns true.
+             If the Key does not exist, the out Value parameter is set to null and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A <see cref="T:System.String"/> to which the Attribute value is assigned, 'null' is assigned to this value if the Key is not found</param>
+             <returns>true if Key exists, false if Key is not found</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.TryGetAttribute(System.String,System.Int32@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it converts the attribute value to an <see cref="T:System.Int32"/> and sets it to the out Value parameter and the method returns true.
+             If the Key does not exist, or the Conversion to <see cref="T:System.Int32"/> fails the out Value parameter is set to the minimum value, of <see cref="F:System.Int32.MinValue"/> and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A  <see cref="T:System.Int32"/> to which the Attribute value is converted to, <see cref="F:System.Int32.MinValue"/> is assigned to this value if the Key is not found or the conversion fails</param>
+             <returns>true if Key exists and conversion of Attribute value to <see cref="T:System.Int32"/> is successful, false if Key is not found or the conversion to <see cref="T:System.Int32"/> fails</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.TryGetAttribute(System.String,System.Double@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it converts the attribute value to an <see cref="T:System.Double"/> and sets it to the out Value parameter and the method returns true.
+             If the Key does not exist, or the Conversion to <see cref="T:System.Double"/> fails, the out Value parameter is set to <see cref="F:System.Double.NaN"/> and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A  <see cref="T:System.Double"/> to which the Attribute value is converted to, <see cref="F:System.Double.NaN"/> is assigned to this value if the Key is not found or the conversion fails</param>
+             <returns>true if Key exists and conversion of Attribute value to <see cref="T:System.Double"/> is successful, false if Key is not found or the conversion to <see cref="T:System.Double"/> fails</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.TryGetAttribute(System.String,System.Boolean@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it converts the attribute value to an <see cref="T:System.Boolean"/> and sets it to the out Value parameter and the method returns true.
+             If the Key does not exist, or the Conversion to <see cref="T:System.Boolean"/> fails, the out Value parameter is set to <see cref="F:System.Double.NaN"/> and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A  <see cref="T:System.Boolean"/> to which the Attribute value is converted to, false is assigned to this value if the Key is not found or the conversion fails</param>
+             <returns>true if Key exists and conversion of Attribute value to <see cref="T:System.Boolean"/> is successful, false if Key is not found or the conversion to <see cref="T:System.Boolean"/> fails</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.DeleteAttribute(System.String)">
+            <summary>
+            FPTMethod: This method is used to delete an existing Key-Value pair
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value pair is retreived for deletion</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.Attributes.Item(System.String)">
+             <summary>
+            FPTMethod:  An indexed property to easily retrieve an attribute Value for a given Key.
+             When this property is assigned a value, the set method will overwrite the attribute value for an existing key and will create a new Key-Value attribute pair if the Key does not exist.
+             </summary>
+             <param name="AttributeKey">The <see cref="T:System.String"/> Key by which the key value pair is retreived</param>
+             <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="AttributeKey"/> or the assigned value is null</exception>       
+             <returns>Returns a <see cref="T:System.String"/> Value correspoding to the supplied Key</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.ContainsAttributeKey(System.String,System.Boolean)">
+            <summary>
+            FPTMethod: This method returns true if the supplied Key is found in the Attribute Keys.
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key to look for in Attribute Keys</param>
+            <returns>True if the Key is found, False if the Key is not found in Attribute Keys</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.ContainsAttributeValue(System.String,System.Boolean)">
+            <summary>
+            FPTMethod: This method returns true if the supplied Value is found in the Attribute Values.
+            </summary>
+            <param name="Value">The <see cref="T:System.String"/> Value to search for in Attribute values</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.AttributeKeysCollection">
+            <summary>
+            FPTMethod: This method returns the collection of Keys from the Key-Value pairs
+            </summary>
+            <returns><see cref="!:System.Collections.Generic.Dictionary&lt;string,string&gt;.KeyCollection"/></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.AttributeValuesCollection">
+            <summary>
+            FPTMethod: This method returns the collection ov Values from the Key-Value pairs
+            </summary>
+            <returns>System.Collections.Generic.Dictionary{string,string}.ValueCollection</returns>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.Attributes.AttributeCount">
+            <summary>
+            FPTMethod: This property returns the number of Key-Value attribute pairs in the current objects attributes
+            </summary>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.Attributes.UninitializedCt">
+            <summary>
+            FPTMethod: Attribute count without initialization, used for internal purposes only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SerializeAttToXml(System.Boolean)">
+             <summary>
+            FPTMethod:  This method serializes the AttributeDictionary into an XML element named 'Attributes'
+            This method calls BeforeSerialize() before serialization starts
+             </summary>
+             <returns><see cref="T:System.Xml.Linq.XElement"/> named 'Attributes'</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.DeserializeAttFromXml(System.Xml.Linq.XElement,System.Boolean)">
+            <summary>
+            This method takes an XElement as a parameter and deserializes the attributes of the element to the AttributeDictionary
+            This method calls OnDeserialize() after the deserialization is complete.
+            </summary>
+            <param name="XMLelement"><see cref="T:System.Xml.Linq.XElement"/></param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.BeforeAttSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare attributes before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.OnAttDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the attributes are deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.IsColumnAttribute(System.String)">
+            <summary>
+            Method to check if an Attribute with the same name (Key) exists as a column in the database table.
+            </summary>
+            <param name="Key">The name of the attribute</param>
+            <returns>True if there exists a column with the same name as the Key parameter in the database table</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.GetColumnAttribute(System.String)">
+            <summary>
+            Method to retreive value from a Column in the database table
+            </summary>
+            <param name="Key">The name of the column from which to retreive the value</param>
+            <returns>The <see cref="T:System.String"/> representation of the value in the column</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Attributes.SetColumnAttribute(System.String,System.String)">
+            <summary>
+            Method to Set the value of a column with the name provided by the parameter "Key" and value provided by the Parameter "Value"
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> name of the column</param>
+            <param name="Value">The <see cref="T:System.String"/> value stored in the column</param>
+        </member>
+        <member name="T:FPTAutomation.ADBModel.ChildContainerType">
+            <summary>
+            The ChildContainerType specifies whether a Container holds other Containers (like a TubeRack) or if a Container contains sample Wells (Like a Microtiter Plate or a 2DTube).
+            </summary>
+        </member>
+        <member name="T:FPTAutomation.ADBModel.adb">
+            <summary>
+            A static class that produces an instance of DbContext for the Automation Database.
+            The connection for the context is specified in the connection string.
+            </summary>
+        </member>
+        <member name="F:FPTAutomation.ADBModel.adb.Context">
+            <summary>
+            A static field that is an instance of DbContext for the Automation Database.
+            The connection for the context is specified in the connection string.
+            </summary>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.adb.LazyLoading">
+            <summary>
+            A property to enable or disable LazyLoading in Entity Framework
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.adb.RefreshContext">
+            <summary>
+            Refresh the database context. Clear the local cache memory and create a new connection to the database. Any unsaved changes will be lost. Call this to clear errors.
+            </summary>
+        </member>
+        <member name="T:FPTAutomation.ADBModel.Id.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Id.Id.GetId(FPTAutomation.ADBModel.idtype,System.String)">
+            <summary>
+            Returns a unique Id of the specified type from the Automation database
+            </summary>
+            <param name="type">An enumeration representing the type of id requested</param>
+            <param name="reason">Optional reason for the request</param>
+            <returns>An Integer unique Id</returns>
+        </member>
+        <member name="T:FPTAutomation.ADBModel.MetaData">
+            <summary>
+            FPTtype: The Attributes class stores object information as Key-Value pairs of <see cref="T:System.String"/> type and provides methods to add, modify, delete Key-Value pairs
+            The class also provides methods to Serialize to an XMLelement(<see cref="T:System.Xml.Linq.XElement"/>)and Deserialize from an XMLelement.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:FPTAutomation.ADBModel.MetaData.MetadataDictionary" -->
+        <member name="M:FPTAutomation.ADBModel.MetaData.#ctor">
+            <summary>
+            Default Constructor for Attributes, no parameters, uses StringComparer.CurrentCultureIgnoreCase IEqualityComparer for Keys
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.#ctor(System.Collections.Generic.IEqualityComparer{System.String})">
+            <summary>
+            Contstructor with the option to specify the IEqualityComparer{System.String} to compare Keys
+            </summary>
+            <param name="comparer"> the IEqualityComparer{System.String} to compare Keys</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.UpdateMetadata">
+            <summary>
+            Method that is called everytime a key-value pair is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.InitializeMetadata">
+            <summary>
+             Method that is called everytime a key-value pair is accessed. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.MetaData.DeepCopyOfMetadataDictionary">
+            <summary>
+            FPTMethod: This property returns a deep copy of the Dictionary{string,string} usted to store the key-value pairs internally.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.SetMetadata(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.String"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> or <paramref name="Value"/> are null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.SetMetadata(System.String,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Int32"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.SetMetadata(System.String,System.Double,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Double"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> or <paramref name="Value"/> are null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.SetMetadata(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            FPTMethod: This method is used to add a new Key-Value pair or modify the value of an existing Key-Value pair.
+            To prevent overwriting an existing Key-Value pair, set the FlagOverwrite parameter to Flag
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+            <param name="Value">The <see cref="T:System.Boolean"/> value stored under the key</param>
+            <param name="FlagOverwrite">Setting this flag to 'false' will prevent overwriting existing data</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+            <exception cref="T:System.ArgumentException">This exception is raised when the combination of Key and Flagoverwrite prevents overwriting data</exception>
+            <returns>void</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.GetMetadata(System.String,System.Boolean)">
+             <summary>
+            FPTMethod:  The method is used to retreive an attribute Value from an existing Key-Value pair attribute
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key by which the key value attribute pair is retreived</param>
+             <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+             <exception cref="T:System.ArgumentException">This exception is raised when Key does not exist in the Metadata dictionary</exception>
+             <returns>Returns a <see cref="T:System.String"/> Value correspoding to the supplied Key, returns <see cref="!:null"/> if the  <paramref name="Key"/> does not exist .</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.TryGetMetadata(System.String,System.String@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it sets the attribute value to the out Value parameter and the method returns true.
+             If the Key does not exist, the out Value parameter is set to null and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A <see cref="T:System.String"/> to which the Metadata value is assigned, 'null' is assigned to this value if the Key is not found</param>
+             <returns>true if Key exists, false if Key is not found</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.TryGetMetadata(System.String,System.Int32@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it converts the attribute value to an <see cref="T:System.Int32"/> and sets it to the out Value parameter and the method returns true.
+             If the Key does not exist, or the Conversion to <see cref="T:System.Int32"/> fails the out Value parameter is set to the minimum value, of <see cref="F:System.Int32.MinValue"/> and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A  <see cref="T:System.Int32"/> to which the Metadata value is converted to, <see cref="F:System.Int32.MinValue"/> is assigned to this value if the Key is not found or the conversion fails</param>
+             <returns>true if Key exists and conversion of Metadata value to <see cref="T:System.Int32"/> is successful, false if Key is not found or the conversion to <see cref="T:System.Int32"/> fails</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.TryGetMetadata(System.String,System.Double@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it converts the attribute value to an <see cref="T:System.Double"/> and sets it to the out Value parameter and the method returns true.
+             If the Key does not exist, or the Conversion to <see cref="T:System.Double"/> fails, the out Value parameter is set to <see cref="F:System.Double.NaN"/> and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A  <see cref="T:System.Double"/> to which the Metadata value is converted to, <see cref="F:System.Double.NaN"/> is assigned to this value if the Key is not found or the conversion fails</param>
+             <returns>true if Key exists and conversion of Metadata value to <see cref="T:System.Double"/> is successful, false if Key is not found or the conversion to <see cref="T:System.Double"/> fails</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.TryGetMetadata(System.String,System.Boolean@,System.Boolean)">
+             <summary>
+            FPTMethod:  This method checks for the existence of the supplied Key and sets the out Value parameter accordingly.
+             If the Key exists, it converts the attribute value to an <see cref="T:System.Boolean"/> and sets it to the out Value parameter and the method returns true.
+             If the Key does not exist, or the Conversion to <see cref="T:System.Boolean"/> fails, the out Value parameter is set to <see cref="F:System.Double.NaN"/> and the method returns false.
+             </summary>
+             <param name="Key">The <see cref="T:System.String"/> Key of the Key-Value attribute pair</param>
+             <param name="Value">A  <see cref="T:System.Boolean"/> to which the Metadata value is converted to, false is assigned to this value if the Key is not found or the conversion fails</param>
+             <returns>true if Key exists and conversion of Metadata value to <see cref="T:System.Boolean"/> is successful, false if Key is not found or the conversion to <see cref="T:System.Boolean"/> fails</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.DeleteMetadata(System.String)">
+            <summary>
+            FPTMethod: This method is used to delete an existing Key-Value pair
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key by which the key value pair is retreived for deletion</param>
+            <exception cref="T:System.ArgumentNullException">This exception is thrown if <paramref name="Key"/> is null</exception>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.ContainsMetadataKey(System.String,System.Boolean)">
+            <summary>
+            FPTMethod: This method returns true if the supplied Key is found in the Metadata Keys.
+            </summary>
+            <param name="Key">The <see cref="T:System.String"/> Key to look for in Metadata Keys</param>
+            <returns>True if the Key is found, False if the Key is not found in Metadata Keys</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.ContainsMetadataValue(System.String,System.Boolean)">
+            <summary>
+            FPTMethod: This method returns true if the supplied Value is found in the Metadata Values.
+            </summary>
+            <param name="Value">The <see cref="T:System.String"/> Value to search for in Metadata values</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.MetadataKeysCollection">
+            <summary>
+            FPTMethod: This method returns the collection of Keys from the Key-Value pairs
+            </summary>
+            <returns><see cref="!:System.Collections.Generic.Dictionary&lt;string,string&gt;.KeyCollection"/></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.MetadataValuesCollection">
+            <summary>
+            FPTMethod: This method returns the collection ov Values from the Key-Value pairs
+            </summary>
+            <returns><see cref="!:System.Collections.Generic.Dictionary&lt;string,string&gt;.ValueCollection"/></returns>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.MetaData.MetadataCount">
+            <summary>
+            FPTMethod: This property returns the number of Key-Value attribute pairs in the current objects attributes
+            </summary>
+        </member>
+        <member name="P:FPTAutomation.ADBModel.MetaData.UninitializedMetadataCt">
+            <summary>
+            FPTMethod: Metadata count without initialization, used for internal purposes only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.SerializeMetadataToXml">
+             <summary>
+            FPTMethod:  This method serializes the MetadataDictionary into an XML element named 'Attributes'
+            This method calls BeforeSerialize() before serialization starts
+             </summary>
+             <returns><see cref="T:System.Xml.Linq.XElement"/> named 'Attributes'</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.MetaData.DeserializeMetadataFromXml(System.Xml.Linq.XElement)">
+            <summary>
+            This method takes an XElement as a parameter and deserializes the attributes of the element to the MetadataDictionary
+            This method calls OnDeserialize() after the deserialization is complete.
+            </summary>
+            <param name="XMLelement"><see cref="T:System.Xml.Linq.XElement"/></param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+             FPTMethod: Constructor for new Project
+            </summary>
+            <param name="name">The name of the Project</param>
+            <param name="subtype">The SubType of the Project</param>
+            <param name="type">The Type of the Project</param>
+            <param name="AutoGenerateId"> When true, the unique Id for the Project is automatically generated</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.FindFirstOrDefaultByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Project whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Project will be found
+            However, if the Key-Value combination is not unique multiple Projects will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Project"/> The first Project that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.FindProjectIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  ProjectIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the ProjectId's of the Projects that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.FindByName(System.String)">
+            <summary>
+            Retreives a Project from using its Name field, If more than one Project has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Project</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.FindByDescription(System.String)">
+            <summary>
+            Retreives a Project from using its Description field, If more than one Project has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Project</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Project.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Project.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Project.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Project.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            FPTMethod: Creates a new Sample, assigns a unique Id to the sample
+            </summary>
+            <param name="name">The name of the sample</param>
+            <param name="subtype"><see cref="T:System.String"/> The SubType of the sample, The SubType must exist in the SampleTypeSchema table, defaults to 'Sample'</param>
+            <param name="type"><see cref="T:System.String"/> The Type of the sample, The Type must exist in the SampleTypeSchema table , defaults to 'Sample'</param>
+            <param name="schemaVersion"><see cref="T:System.Int32"/> The schema version if any, defaults to 1</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.InitializeAttributes">
+             <summary>
+            FPTMethod:  For Internal use only
+             </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.CreateInstance(System.Int32,System.Int32,System.Int32,System.Decimal,System.String)">
+            <summary>
+            FPTMethod: This method adds a new instance of a certain amount of sample to a well in a container at the specified row and column.
+            If successful the method returns the InstanceId of the new instance
+            </summary>
+            <param name="containerId"><see cref="T:System.Int32"/> The ContainerId of the container to which the sample will be added</param>
+            <param name="row"><see cref="T:System.Int32"/>The row in which the sample resides on the container</param>
+            <param name="column"> <see cref="T:System.Int32"/>The column in which the sample resides on the container</param>
+            <param name="amount"><see cref="T:System.Decimal"/> The amount of sample added to the container well</param>
+            <param name="unit"><see cref="T:System.String"/> Units for the amount of sample. Example 'ul' for volume. The string that you use should exist in the table <see cref="!:FPTAutomation.ADBModel.Units"/> </param>
+            <param name="AutoGenerateInstanceId"></param>
+            <returns>Nullable <see cref="T:System.Int32"/> InstanceId if successful, null if the method fails</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.FindByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retrieves the first Sample whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Sample will be found
+            However, if the Key-Value combination is not unique multiple Samples will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Sample"/> The first Sample that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.FindIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  SampleIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the SampleId's of the containers that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.FindAllByAttribute(System.String,System.String)">
+            <summary>
+            Retreives a list of Samples using the specified Attribute Key and Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the attribute to search by</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.FindByName(System.String)">
+            <summary>
+            Retreives a Sample from using its Name field, If more than one Sample has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Sample</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.FindByKeyword(System.String)">
+            <summary>
+            Retreives a Sample from using its Keywords field, If more than one Sample has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.Sample</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.FindByDescription(System.String)">
+            <summary>
+            Retreives a Sample from using its Description field, If more than one Sample has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Sample</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Sample.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Sample.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Sample.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Sample.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Sample.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Decimal,System.String)">
+            <summary>
+            Create an instance of a sample in a container(well)
+            </summary>
+            <param name="sampleId">The Sample's primary key</param>
+            <param name="containerId">The Container's primary key</param>
+            <param name="row">The well's row in the container</param>
+            <param name="column">The well's column in the container</param>
+            <param name="amount">The amount of sample present in the well</param>
+            <param name="unit">Amount units</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleInstance.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.#ctor(System.Int32,System.Int32,System.Nullable{System.Double},System.String)">
+            <summary>
+            Constructor for Well
+            </summary>
+            <param name="containerId">The parent Containers Id</param>
+            <param name="row">The row in the parent container that the well belongs to</param>
+            <param name="column">The column in the parent container that the well belongs to</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.SampleTree.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+             FPTMethod: Constructor for new study
+            </summary>
+            <param name="name">The name of the study</param>
+            <param name="subtype">The SubType of the study</param>
+            <param name="type">The Type of the study</param>
+            <param name="AutoGenerateId"> When true, the unique Id for the study is automatically generated</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.FindFirstOrDefaultByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Study whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Study will be found
+            However, if the Key-Value combination is not unique multiple Studys will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Study"/> The first Study that matches the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.FindStudyIdsByAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  StudyIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the StudyId's of the Studys that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.FindByName(System.String)">
+            <summary>
+            Retreives a Study from using its Name field, If more than one Study has the same Name the first or deafault is returned
+            </summary>
+            <param name="Name">The Name to search by</param>
+            <returns>FPTAutomation.ADBModel.Study</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.FindByKeyword(System.String)">
+            <summary>
+            Retreives a Study from using its Keywords field, If more than one Study has the same Keywords the first or deafault is returned
+            </summary>
+            <param Keywords="Keywords">The Keywords to search by</param>
+            <returns>FPTAutomation.ADBModel.Study</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.FindByDescription(System.String)">
+            <summary>
+            Retreives a Study from using its Description field, If more than one Study has the same Description the first or deafault is returned
+            </summary>
+            <param Description="Description">The Description to search by</param>
+            <returns>FPTAutomation.ADBModel.Study</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Study.FindAllByName(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Study.FindAllByKeyword(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FPTAutomation.ADBModel.Study.FindAllByDescription(System.String)" -->
+        <member name="M:FPTAutomation.ADBModel.Study.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Study.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.GetListOfColumnNames">
+            <summary>
+            Get a list of the columns in the corresponding table in the database.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor for Well
+            </summary>
+            <param name="containerId">The parent Containers Id</param>
+            <param name="row">The row in the parent container that the well belongs to</param>
+            <param name="column">The column in the parent container that the well belongs to</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.UpdateAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.InitializeAttributes">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.UpdateMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.InitializeMetadata">
+            <summary>
+            FPTMethod: For Internal use only
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.UpdateObjects">
+            <summary>
+            Method that is called everytime an object is added, changed or deleted. Override this method in derived classes to provide custom functionality
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.InitializeObjects">
+            <summary>
+             Method that is called everytime an object is accessed. Override this method in derived classes to provide custom functionality 
+            </summary>
+            <exception cref="T:System.Xml.XmlException"/>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.FindFirstOrDefaultByAttribute(System.Int32,System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the first Well whose attributes have the specified Key with the specified Value
+            If the Key-Value combination is unique only one Well will be found
+            However, if the Key-Value combination is not unique multiple Wells will be found but only the first one is retreived and returned.
+            </summary>
+            <param name="ContainerId"><see cref="T:System.Int32"/> ContainerId</param>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="T:FPTAutomation.ADBModel.Well"/> The first Well that matches the querry</returns>       
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.FindWellsByAttribute(System.Int32,System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives all wells in a container whose attributes have the specified Key with the specified Value        /// 
+            </summary>
+            <param name="ContainerId"><see cref="T:System.Int32"/> ContainerId</param>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:List&lt;FPTAutomation.ADBModel.Well&gt;"/> Alist of Wells that matches the querry</returns>       
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.FindContainerIdsByWellAttribute(System.String,System.String)">
+            <summary>
+            FPTMethod: This method retreives the a list of  WellIds whose attributes have the specified Key with the specified Value
+            </summary>
+            <param name="Key"><see cref="T:System.String"/> The name of the XML attribute to search by</param>
+            <param name="Value"><see cref="T:System.String"/> The value of the XML attribute to search by</param>
+            <returns><see cref="!:System.Collections.Generic.List&lt;int&gt;"/> a list containing the WellId's of the Wells that matched the querry</returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.BeforeAttSerialize">
+            <summary>
+            This method is called before Serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.OnAttDeserialize">
+            <summary>
+            This method is called after serialization is completer
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.BeforeObjectSerialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to prepare an object before serialization starts
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.OnObjectDeserialize">
+            <summary>
+            FPTMethod:  Extension method to be implemented by derived classes to add aditional functionaly after the object is deserialized.
+            </summary>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.GetWellName(System.Int32,System.Int32)">
+            <summary>
+            A Helper method that generates a wellname from  row and column values
+            For example 'A1' will be returned for row =1 and column=1
+            </summary>
+            <param name="row">The index of the row that the well resides in</param>
+            <param name="col">The index of the column that the well resides in</param>
+            <returns></returns>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.GetRowColFromWellName(System.String,System.Int32@,System.Int32@)">
+            <summary>
+            FPTMethod: This is a helper method to decipher the Row and Column of a Container from the WellName
+            For example a Well with name "A5" with set the column to 5 and Row to 1
+            </summary>
+            <param name="WellName">The name of the well, for example: "A5"</param>
+            <param name="Row"> out parameter for Row</param>
+            <param name="Col">out parameter for Column</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.AddParentWell(System.Int32,System.Int32,System.Int32,System.Double,System.String)">
+            <summary>
+            Add contents of a parent well from a parent container to the current well
+            </summary>
+            <param name="ParentContainerid">ParentContainer's ID</param>
+            <param name="parentRow">Parent Well's row in Parent Container</param>
+            <param name="parentCol">Parent Well's column in Parent Container</param>
+            <param name="amountTransferred">Amount of content transferred</param>
+            <param name="units">The units of the amount of content transferred, example: ul or ml or g</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.AddParentWell(System.Int32,System.String,System.Double,System.String)">
+            <summary>
+            Add contents of a parent well from a parent container to the current well
+            </summary>
+            <param name="ParentContainerid">ParentContainer's ID</param>
+            <param name="WellName">The name of the Parent Well, example A1</param>
+            <param name="amountTransferred">Amount of content transferred</param>
+            <param name="units">The units of the amount of content transferred, example: ul or ml or g</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.AddParentWell(FPTAutomation.ADBModel.Well,System.Double,System.String)">
+            <summary>
+            Add contents of a parent well from a parent container to the current well
+            </summary>
+            <param name="well">Parent Well</param>
+            <param name="amountTransferred">Amount of content transferred</param>
+            <param name="units">The units of the amount of content transferred, example: ul or ml or g</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.AddParentWell(System.String,System.Int32,System.Int32,System.Double,System.String)">
+            <summary>
+            Add contents of a parent well from a parent container to the current well
+            </summary>
+            <param name="ParentContainerBarcode">Parent Container's Barcode</param>
+            <param name="parentRow">Parent Well's row in Parent Container</param>
+            <param name="parentCol">Parent Well's column in Parent Container</param>
+            <param name="amountTransferred">Amount of content transferred</param>
+            <param name="units">The units of the amount of content transferred, example: ul or ml or g</param>
+        </member>
+        <member name="M:FPTAutomation.ADBModel.Well.AddParentWell(System.String,System.String,System.Double,System.String)">
+            <summary>
+            Add contents of a parent well from a parent container to the current well
+            </summary>
+            <param name="ParentContainerBarcode">Parent Container's Barcode</param>
+            <param name="WellName">The name of the Parent Well, example A1</param>
+            <param name="amountTransferred">Amount of content transferred</param>
+            <param name="units">The units of the amount of content transferred, example: ul or ml or g</param>
+        </member>
+    </members>
+</doc>

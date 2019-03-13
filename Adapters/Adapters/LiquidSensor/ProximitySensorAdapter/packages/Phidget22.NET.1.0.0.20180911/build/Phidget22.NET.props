@@ -1,0 +1,17 @@
+﻿<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Phidget22NativeDlls>$(MSBuildThisFileDirectory)\..\NativeDlls</Phidget22NativeDlls>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="$(Phidget22NativeDlls)\x86\phidget22.dll">
+			<Link>dll\x86\phidget22.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(Phidget22NativeDlls)\x64\phidget22.dll">
+			<Link>dll\x64\phidget22.dll</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonServiceInterfaces</name>
+    </assembly>
+    <members>
+        <member name="T:CommonServiceInterfaces.IWebClientService">
+            <summary>
+            Defines a contract for a web client type
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.IWebClientService.ExecuteRequest(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Performs http request
+            </summary>
+            <param name="uri">The uri endpoint</param>
+            <param name="method">the http verb that should be used</param>
+            <param name="headers">Collection of headers</param>
+            <param name="data">Any data that should b written to body of request</param>
+            <returns>Response string</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IWebClientService.ExecuteRequestAsync(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Performs async http request
+            </summary>
+            <param name="uri">The uri endpoint</param>
+            <param name="method">the http verb that should be used</param>
+            <param name="headers">Collection of headers</param>
+            <param name="data">Any data that should b written to body of request</param>
+            <returns>Request task</returns>
+        </member>
+        <member name="T:CommonServiceInterfaces.ITypeManipulator">
+            <summary>
+            Defines an interface for a type capable of converting and casting types
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.ITypeManipulator.ConvertArgsToExpectedTypes(System.Collections.Generic.Dictionary{System.String,System.String},System.Reflection.MethodInfo)">
+            <summary>
+            Convert a dictionary of string arguments to respective target types. 
+            </summary>
+            <param name="methodArgs">Dictionary of argument name to string representation of argument</param>
+            <param name="methodReference">Method object</param>
+            <returns>Collection of converted args</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.ITypeManipulator.TryParseNumericFromString``1(System.String,``0@)">
+            <summary>
+            Attempt to parse a number from a string
+            </summary>
+            <typeparam name="outputType">The numeric type to cast the string to</typeparam>
+            <param name="text">The string representation of a number</param>
+            <param name="parsedNumeric">Reference to variable where the casted type should be output</param>
+            <returns>Flag for casting success</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.ITypeManipulator.TryConvertStringTo(System.String,System.Type)">
+            <summary>
+            Convert a string to a runtime type
+            </summary>
+            <param name="str">The string holding the value to convert</param>
+            <param name="expectedType">The target type</param>
+            <returns>A boxed value of the converted value</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:CommonServiceInterfaces.ITypeManipulator.ParseStringTo(System.String,System.Type)" -->
+        <!-- Badly formed XML comment ignored for member "M:CommonServiceInterfaces.ITypeManipulator.TryParseStringTo(System.String,System.Type,System.Object@)" -->
+        <member name="T:CommonServiceInterfaces.ICodeContractService">
+            <summary>
+            Defines contract for a type that provides tooling to enforce rules in code such as preconditions, post conditions, and invariants
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.ICodeContractService.Requires``1(System.Boolean,System.String)">
+            <summary>
+            Throws an exception if the predicate is false
+            </summary>
+            <typeparam name="TException">The exception to throw if the predicate is false</typeparam>
+            <param name="Predicate">Tredicate to evaluate</param>
+            <param name="Message">Exception message message</param>
+        </member>
+        <member name="T:CommonServiceInterfaces.IFileService">
+            <summary>
+            Defines a contract for a type that performs file io operations
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.IFileService.DeleteAllFilesAndSubdirectories(System.IO.DirectoryInfo)">
+            <summary>
+            Delete all files and subdirectories
+            </summary>
+            <param name="directory">The root directory object</param>
+        </member>
+        <member name="M:CommonServiceInterfaces.IFileService.CreateFileWithDirectory(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Create/overwrite a file and required directory if they dont exist.
+            </summary>
+            <param name="filePath">The file path</param>
+            <param name="createDirectory">Flag indicating whether or not to create directory if it doesnt exist</param>
+            <param name="overwriteExisting">Flag indicating whether or not to overwrite existing file</param>
+        </member>
+        <member name="M:CommonServiceInterfaces.IFileService.OpenFile(System.String,System.Boolean)">
+            <summary>
+            Open a file and return handle to it
+            </summary>
+            <param name="filePath">The path of the file to open</param>
+            <param name="readOnly">A flag indicating if only reading ops will occur</param>
+            <returns>Handle to open file</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IFileService.FileExists(System.String)">
+            <summary>
+            Check if a file exists
+            </summary>
+            <param name="filePath">The path to the file that should be checked</param>
+            <returns>Flag indicating whether the file exists</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IFileService.DeleteFile(System.String)">
+            <summary>
+            Delete a file
+            </summary>
+            <param name="filePath">The path of the file to be deleted</param>
+        </member>
+        <member name="M:CommonServiceInterfaces.IFileService.GetFileNamesFromDirectory(System.String,System.String,System.Boolean)">
+            <summary>
+            Get a collection of file names from a directory
+            </summary>
+            <param name="directory">Path of the directory</param>
+            <param name="searchPattern">A search pattern string for only finding files with a specific extension</param>
+            <param name="searchNestedDirectories">Flag indicating whether or not subdirectories will be searched</param>
+            <returns>Collection of file names</returns>
+        </member>
+        <member name="T:CommonServiceInterfaces.IGenericFactory">
+            <summary>
+            Defines a contract for a type that can construct other types using a generic factory architecture
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.IGenericFactory.Construct(System.String,System.String,System.Type,System.Type[],System.Object[])">
+            <summary>
+            Create a boxed instance of a specified type
+            </summary>
+            <param name="assemblyPath">The absolute path of the assembly file</param>
+            <param name="className">The name of the type of instantiate</param>
+            <param name="targetType">A base class or interface that the instantiated type should inherit or implement</param>
+            <param name="genTypeParams">Generic type parameters for instantiating open generic types</param>
+            <param name="ctorArgs">Arguments to pass to the type's constructor if it doesnt have a parameterless constructor</param>
+            <returns>Boxed instance of the requested type</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IGenericFactory.GetTypeObject(System.String,System.String,System.Type,System.Type[])">
+            <summary>
+            Get the Type object for the specified type
+            </summary>
+            <param name="assemblyPath">The absolute path of the assembly file</param>
+            <param name="className">The name of the type of instantiate</param>
+            <param name="targetType">A base class or interface that the instantiated type should inherit or implement</param>
+            <param name="genTypeParams">Generic type parameters for instantiating open generic types</param>
+            <returns>Type object of the requested type</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IGenericFactory.IsValidType(System.String,System.String,System.Type,System.Type[])">
+            <summary>
+            Ensure a type either implements a specified interface or inherits from a base class
+            </summary>
+            <param name="assemblyPath">The absolute path of the assembly file</param>
+            <param name="className">The name of the type of instantiate</param>
+            <param name="targetType">A base class or interface that the instantiated type should inherit or implement</param>
+            <param name="genTypeParams">Generic type parameters for instantiating open generic types</param>
+            <returns>Flag indicating type validity with regard to inheritance/implementation constraint</returns>
+        </member>
+        <member name="T:CommonServiceInterfaces.IComponentSerializer">
+            <summary>
+            Defines a contract for a type that can serialize/deserialize objects to/from a persistent data store
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentSerializer.SerializeObjectToString(System.Object)">
+            <summary>
+            Serialize object to a string representation
+            </summary>
+            <param name="obj">The object to serialize</param>
+            <returns>string representation of object</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentSerializer.DeserializeObjectFromString``1(System.String)">
+            <summary>
+            deserialize object from string
+            </summary>
+            <typeparam name="DeserializedType">The type to deserialize to</typeparam>
+            <param name="xmlString">The string representation of an object</param>
+            <returns>The deserialized object</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentSerializer.DeserializeObjectFromString(System.String,System.Type)">
+            <summary>
+            deserialize runtime object from string
+            </summary>
+            <param name="xmlString">String represenation of object</param>
+            <param name="objectType">Runtime type to deserialize to</param>
+            <returns>Boxed deserialized object</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentSerializer.SerializeObjectToFile(System.Object,System.String)">
+            <summary>
+            Serialize object instance to file
+            </summary>
+            <param name="obj">The object to serialize to file</param>
+            <param name="filePath">The file path where to serialize object</param>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentSerializer.DeserializeObjectFromFile``1(System.String)">
+            <summary>
+            Deserialize object from file
+            </summary>
+            <typeparam name="DeserializedType">The type to deserialize</typeparam>
+            <param name="filePath">Path where the string represenation of the object resides</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentSerializer.DeserializeObjectFromFile(System.String,System.Type)">
+            <summary>
+            Deserialize object from file
+            </summary>
+            <param name="filePath">The path where the string representation of the object resides</param>
+            <param name="objType">Runtime type to deserialize</param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonServiceInterfaces.IComponentPersistence">
+            <summary>
+            Defines a highly abstracted contract for a type that persists state objects
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentPersistence.PersistComponentState(System.Object,System.String,System.String)">
+            <summary>
+            Persist a state object to a specified location
+            </summary>
+            <param name="component">The object to persist</param>
+            <param name="directory">The dierectory where the object should be persisted</param>
+            <param name="profileName">The profile name for this state object</param>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentPersistence.LoadComponentState(System.Type,System.String,System.String)">
+            <summary>
+            Load a component from a data store
+            </summary>
+            <param name="objType">The expected runtime type of the loaded object</param>
+            <param name="directory">the directory from which the object should be loaded</param>
+            <param name="profileName">The profile name of the state object</param>
+            <returns>Boxed value of the loaded object</returns>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentPersistence.DeleteComponentState(System.String,System.String)">
+            <summary>
+            Delete a stored state object
+            </summary>
+            <param name="directory">the directory from which the object should be loaded</param>
+            <param name="profileName">The profile name of the state object</param>
+        </member>
+        <member name="M:CommonServiceInterfaces.IComponentPersistence.GetAvailableComponentProfiles(System.String)">
+            <summary>
+            Get collection of avaliable state object profiles
+            </summary>
+            <param name="directory">The directory to look for stored state object profiles</param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonServiceInterfaces.IEmailMessenger">
+            <summary>
+            Defines contract for an email messenging type
+            </summary>
+        </member>
+        <member name="M:CommonServiceInterfaces.IEmailMessenger.SendMessage(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Sends a message to list of specified email addresses
+            </summary>
+            <param name="subject">Subject of the email</param>
+            <param name="message">Email message body</param>
+            <param name="emailAddresses">List of formatted email addresses</param>
+        </member>
+    </members>
+</doc>
